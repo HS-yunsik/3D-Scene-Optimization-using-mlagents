@@ -253,11 +253,11 @@ MonoBehaviour:
   MaxStep: 0
   moveSpeed: 2
   targetWallDistance: 0.2
-  distanceWeight: 0.5
+  distanceWeight: 0.2
   alignmentWeight: 1
   overlapPenalty: 1
   stepPenalty: 0.001
-  distanceTolerance: 0.5
+  distanceTolerance: 0.2
   rotateTolerance: 0.9
   isAtIdealDistance: 0
   isAtIdealRotate: 0
@@ -606,7 +606,7 @@ MonoBehaviour:
   MaxStep: 0
   moveSpeed: 2
   targetWallDistance: 0.2
-  distanceWeight: 0.5
+  distanceWeight: 0.2
   alignmentWeight: 1
   overlapPenalty: 1
   stepPenalty: 0.001
@@ -1276,8 +1276,8 @@ MonoBehaviour:
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
   moveSpeed: 2
-  targetWallDistance: 2
-  distanceWeight: 0.5
+  targetWallDistance: 0.2
+  distanceWeight: 0.2
   alignmentWeight: 1
   overlapPenalty: 1
   stepPenalty: 0.001
@@ -1722,7 +1722,7 @@ MonoBehaviour:
   MaxStep: 0
   moveSpeed: 2
   targetWallDistance: 0.2
-  distanceWeight: 0.5
+  distanceWeight: 0.2
   alignmentWeight: 1
   overlapPenalty: 1
   stepPenalty: 0.001
@@ -1959,12 +1959,12 @@ MonoBehaviour:
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
   moveSpeed: 2
-  targetWallDistance: 2
-  distanceWeight: 0.5
+  targetWallDistance: 0.2
+  distanceWeight: 0.2
   alignmentWeight: 1
   overlapPenalty: 1
   stepPenalty: 0.001
-  distanceTolerance: 2
+  distanceTolerance: 0.2
   rotateTolerance: 0.9
   isAtIdealDistance: 0
   isAtIdealRotate: 0
@@ -2207,12 +2207,12 @@ MonoBehaviour:
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
   moveSpeed: 2
-  targetWallDistance: 2
-  distanceWeight: 0.5
+  targetWallDistance: 0.2
+  distanceWeight: 0.2
   alignmentWeight: 1
   overlapPenalty: 1
   stepPenalty: 0.001
-  distanceTolerance: 2
+  distanceTolerance: 0.2
   rotateTolerance: 0.9
   isAtIdealDistance: 0
   isAtIdealRotate: 0

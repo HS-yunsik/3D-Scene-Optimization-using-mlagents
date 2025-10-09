@@ -184,7 +184,7 @@ public class FurnitureAgent : Agent
         if (dir != Vector3.zero)
             TryMove(dir * moveSpeed * Time.fixedDeltaTime);
 
-        // --- 보상 로직 (오직 '거리'에 대해서만) ---
+        // --- 보상 로직 wallDist는 객체 중심부터 가장 가까운 벽 표면까지의 거리 ---
         GetNearestWallInfo(out float wallDist, out _);
         float currentError = Mathf.Abs(wallDist - targetWallDistance);
 
@@ -193,7 +193,7 @@ public class FurnitureAgent : Agent
 
         // 2. 이전보다 더 가까워졌는지 확인하고 '진전'에 대한 보상 추가
         float progress = previousDistanceError - currentError;
-        AddReward(progress * 0.5f); // '진전' 보상 가중치는 튜닝 필요
+        AddReward(progress); // '진전' 보상 가중치는 튜닝 필요
         previousDistanceError = currentError;
 
         isAtIdealDistance = currentError <= distanceTolerance;
@@ -377,40 +377,69 @@ public class FurnitureAgent : Agent
             return;
 
         Vector3 center = myCollider.bounds.center;
-        float best = float.MaxValue;
-        Vector3 bestV = Vector3.zero;
         Collider bestWall = null;
+        Vector3 bestWallPoint = Vector3.zero;
+        float bestDistToCenter = float.MaxValue;
 
+        // 1. 모든 벽을 순회하며 내 중심점과 가장 가까운 벽을 찾습니다.
         foreach (var wall in wallColliders)
         {
             Vector3 wallPoint = wall.ClosestPoint(center);
-            Vector3 dir = wallPoint - center;
-            Vector2 dirVec2 = new Vector2(dir.x, dir.z);
-            float dist = dirVec2.magnitude;
+            float dist = Vector3.Distance(center, wallPoint);
 
-            if (dist < best)
+            if (dist < bestDistToCenter)
             {
-                best = dist;
-                bestV = dir;
+                bestDistToCenter = dist;
                 bestWall = wall;
+                bestWallPoint = wallPoint;
             }
         }
-        // 가장 가까운 벽을 확정
+
+        if (bestWall == null) return;
+
+        // ✨ --- 일반화된 거리 계산 (핵심 로직) --- ✨
+        // 2. 위에서 찾은 벽 위의 지점(bestWallPoint)을 기준으로,
+        //    이번엔 내 콜라이더에서 가장 가까운 지점(agentPoint)을 찾습니다.
+        Vector3 agentPoint = myCollider.ClosestPoint(bestWallPoint);
+
+        // 3. 두 표면 위의 지점 사이의 거리를 계산합니다. 이것이 최종 거리입니다.
+        distance = Vector3.Distance(agentPoint, bestWallPoint);
+
+        // --- Inspector 및 방향 벡터 업데이트 ---
         nearestWall = bestWall;
-        nearestWallDis = best;
+        nearestWallDis = distance; // 실제 표면 거리를 Inspector에 표시
 
-        // 방향 (XZ 평면 정규화)
-        direction = new Vector3(bestV.x, 0, bestV.z).normalized;
-
-        // Z방향 크기 보정 (콜라이더의 local extents 사용)
-        float halfZ = myCollider.bounds.extents.z;
-        distance = Mathf.Max(0f, best - halfZ);
+        // 방향은 여전히 중심점 기준으로 계산하는 것이 안정적일 수 있습니다.
+        direction = (bestWallPoint - center).normalized;
     }
     // Debug용
     void OnDrawGizmosSelected()
     {
-        if (nearestWall == null) return;
+        if (nearestWall == null || myCollider == null) return;
+
+        Vector3 center = myCollider.bounds.center;
+        Vector3 wallPoint = nearestWall.ClosestPoint(center);
+
+        // 1. 가장 가까운 벽으로 향하는 노란색 선
         Gizmos.color = Color.yellow;
-        Gizmos.DrawLine(myCollider.bounds.center, nearestWall.ClosestPoint(myCollider.bounds.center));
+        Gizmos.DrawLine(center, wallPoint);
+
+        // 2. 계산된 목표 지점을 나타내는 녹색 구
+        Vector3 dirToWall = (wallPoint - center).normalized;
+
+        // 목표 지점 계산 (벽 표면으로부터의 거리)
+        // 벽 표면과 가구 표면 사이의 거리가 targetWallDistance가 되어야 함
+        float distFromCenterToWallCenter = Vector3.Distance(center, wallPoint);
+        float furnitureExtent = myCollider.bounds.extents.z; // 가구의 절반 크기 (forward 방향 기준)
+
+        // 실제 이동해야 하는 거리 = (현재 벽과의 거리) - (목표 거리) - (가구 크기 절반)
+        // 이 계산은 가구의 forward 방향이 벽을 바라볼 때를 가정한 것
+        // 좀 더 정확한 계산을 위해 벽과의 최단 거리(nearestWallDis)를 사용
+
+        // 가장 가까운 벽 표면으로부터 targetWallDistance 만큼 떨어진 지점
+        Vector3 targetPoint = wallPoint - (dirToWall * targetWallDistance);
+
+        Gizmos.color = Color.green;
+        Gizmos.DrawSphere(targetPoint, 0.1f);
     }
 }
