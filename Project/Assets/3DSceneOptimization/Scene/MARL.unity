@@ -257,7 +257,7 @@ MonoBehaviour:
   alignmentWeight: 1
   overlapPenalty: 1
   stepPenalty: 0.001
-  distanceTolerance: 0.2
+  distanceTolerance: 0.5
   rotateTolerance: 0.9
   isAtIdealDistance: 0
   isAtIdealRotate: 0
@@ -610,7 +610,7 @@ MonoBehaviour:
   alignmentWeight: 1
   overlapPenalty: 1
   stepPenalty: 0.001
-  distanceTolerance: 0.2
+  distanceTolerance: 0.5
   rotateTolerance: 0.9
   isAtIdealDistance: 0
   isAtIdealRotate: 0
@@ -1281,7 +1281,7 @@ MonoBehaviour:
   alignmentWeight: 1
   overlapPenalty: 1
   stepPenalty: 0.001
-  distanceTolerance: 0.2
+  distanceTolerance: 0.5
   rotateTolerance: 0.9
   isAtIdealDistance: 0
   isAtIdealRotate: 0
@@ -1726,7 +1726,7 @@ MonoBehaviour:
   alignmentWeight: 1
   overlapPenalty: 1
   stepPenalty: 0.001
-  distanceTolerance: 0.2
+  distanceTolerance: 0.5
   rotateTolerance: 0.9
   isAtIdealDistance: 0
   isAtIdealRotate: 0
@@ -1964,7 +1964,7 @@ MonoBehaviour:
   alignmentWeight: 1
   overlapPenalty: 1
   stepPenalty: 0.001
-  distanceTolerance: 0.2
+  distanceTolerance: 0.5
   rotateTolerance: 0.9
   isAtIdealDistance: 0
   isAtIdealRotate: 0
@@ -2212,7 +2212,7 @@ MonoBehaviour:
   alignmentWeight: 1
   overlapPenalty: 1
   stepPenalty: 0.001
-  distanceTolerance: 0.2
+  distanceTolerance: 0.5
   rotateTolerance: 0.9
   isAtIdealDistance: 0
   isAtIdealRotate: 0

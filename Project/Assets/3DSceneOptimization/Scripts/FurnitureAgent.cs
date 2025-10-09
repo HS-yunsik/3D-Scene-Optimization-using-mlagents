@@ -18,6 +18,9 @@ public class FurnitureAgent : Agent
     public float distanceTolerance = 0.2f; // 허용 오차 (m 단위)
     public float rotateTolerance = 0.9f; // 허용 오차 (내적값 -1~1)
     private float previousDistanceError; // 이전 스텝의 거리를 이용하여 올바른 방향 제시
+    public float proximityPenaltyWeight = 0.5f; // 개인 공간 침범 페널티 가중치
+    public float personalSpaceRadius = 2.0f;  // 이 반경 안에 들어오면 페널티 적용
+
 
     public bool isAtIdealDistance = false; // 컨트롤러에서 읽기용
     public bool isAtIdealRotate = false; // 컨트롤러에서 읽기용
@@ -37,6 +40,9 @@ public class FurnitureAgent : Agent
     Collider[] wallColliders;
     Bounds areaBounds;
     SimpleMultiAgentGroup group;
+
+    // Controller가 관리하는 다른 에이전트 목록
+    private List<FurnitureAgent> otherAgents;
 
     public enum AgentPhase
     {
@@ -74,7 +80,11 @@ public class FurnitureAgent : Agent
         }
 
         wallColliders = found.ToArray();
-        // GetNearestWallInfo(out float wallDist, out _); // Initialize에서는 굳이 호출할 필요 없음
+        if (controller != null)
+        {
+            // 컨트롤러로부터 전체 에이전트 목록을 받아와서, 자기 자신은 제외
+            otherAgents = controller.agents.Where(a => a != this).ToList();
+        }
     }
 
     /// <summary>
@@ -193,8 +203,24 @@ public class FurnitureAgent : Agent
 
         // 2. 이전보다 더 가까워졌는지 확인하고 '진전'에 대한 보상 추가
         float progress = previousDistanceError - currentError;
-        AddReward(progress); // '진전' 보상 가중치는 튜닝 필요
+        AddReward(progress * 2.0f); // '진전' 보상 가중치는 튜닝 필요
         previousDistanceError = currentError;
+
+        foreach (var other in otherAgents)
+        {
+            // 다른 에이전트가 비활성(얼어붙음) 상태가 아니거나, 너무 멀리 있으면 무시
+            if (other.isFrozen || Vector3.Distance(transform.position, other.transform.position) > personalSpaceRadius)
+            {
+                continue;
+            }
+
+            float distance = Vector3.Distance(transform.position, other.transform.position);
+
+            // 거리가 가까울수록 기하급수적으로 큰 페널티를 부여 (1 / 거리^2)
+            // 아주 가까울 때 폭발적인 페널티를 주어 접근을 막음
+            float penalty = -(1f / (distance * distance)) * proximityPenaltyWeight;
+            AddReward(penalty);
+        }
 
         isAtIdealDistance = currentError <= distanceTolerance;
 

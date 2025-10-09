@@ -1,6 +1,7 @@
 using System.Collections.Generic;
-using UnityEngine;
 using Unity.MLAgents;
+using UnityEditor.PackageManager;
+using UnityEngine;
 public class FurnitureEnvController : MonoBehaviour
 {
     [Header("Environment")]
@@ -15,6 +16,7 @@ public class FurnitureEnvController : MonoBehaviour
     Bounds areaBounds;
     SimpleMultiAgentGroup group;
     int stepCount;
+
 
     // 에이전트 들을 담아놓는 빈 부모객체
     [SerializeField]
