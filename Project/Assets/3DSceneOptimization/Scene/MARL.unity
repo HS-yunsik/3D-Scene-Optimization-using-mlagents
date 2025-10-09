@@ -125,7 +125,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 1959525475}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: df20f913356fc664abf4261485cb39c8,
         type: 3}
@@ -150,7 +150,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: df20f913356fc664abf4261485cb39c8,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: df20f913356fc664abf4261485cb39c8,
         type: 3}
@@ -182,11 +182,111 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sofa_589d864a-67dd-462b-aa1e-43b3a50d7ba6
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: df20f913356fc664abf4261485cb39c8,
+        type: 3}
+      propertyPath: m_TagString
+      value: Furniture
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: df20f913356fc664abf4261485cb39c8,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 290498502}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: df20f913356fc664abf4261485cb39c8,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 290498501}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: df20f913356fc664abf4261485cb39c8,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 290498500}
   m_SourcePrefab: {fileID: 100100000, guid: df20f913356fc664abf4261485cb39c8, type: 3}
+--- !u!4 &290498498 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: df20f913356fc664abf4261485cb39c8,
+    type: 3}
+  m_PrefabInstance: {fileID: 290498497}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &290498499 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: df20f913356fc664abf4261485cb39c8,
+    type: 3}
+  m_PrefabInstance: {fileID: 290498497}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &290498500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 290498499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DecisionPeriod: 5
+  DecisionStep: 0
+  TakeActionsBetweenDecisions: 1
+--- !u!114 &290498501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 290498499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b85ad6d51d99db442a75abfeae042a43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentParameters:
+    maxStep: 0
+  hasUpgradedFromAgentParameters: 1
+  MaxStep: 0
+  moveSpeed: 2
+  targetWallDistance: 0.2
+  distanceWeight: 0.5
+  overlapPenalty: 0.2
+  stepPenalty: 0.001
+  myCollider: {fileID: 0}
+  wallTag: Wall
+  furnitureTag: Furniture
+  controller: {fileID: 0}
+--- !u!114 &290498502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 290498499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d1c4e0b1822b495aa52bc52839ecb30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BrainParameters:
+    VectorObservationSize: 5
+    NumStackedVectorObservations: 2
+    m_ActionSpec:
+      m_NumContinuousActions: 0
+      BranchSizes: 04000000
+    VectorActionSize: 04000000
+    VectorActionDescriptions: []
+    VectorActionSpaceType: 0
+    hasUpgradedBrainParametersWithActionSpec: 1
+  m_Model: {fileID: 0}
+  m_InferenceDevice: 0
+  m_BehaviorType: 0
+  m_BehaviorName: OptimizationCollab
+  TeamId: 0
+  m_UseChildSensors: 1
+  m_UseChildActuators: 1
+  m_DeterministicInference: 0
+  m_ObservableAttributeHandling: 0
 --- !u!1 &696902958
 GameObject:
   m_ObjectHideFlags: 0
@@ -200,7 +300,7 @@ GameObject:
   - component: {fileID: 696902960}
   m_Layer: 0
   m_Name: Wall
-  m_TagString: wall
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -334,7 +434,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 1959525475}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 45893e0c8bf352244b3433fe00750df1,
         type: 3}
@@ -359,7 +459,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 45893e0c8bf352244b3433fe00750df1,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 45893e0c8bf352244b3433fe00750df1,
         type: 3}
@@ -391,11 +491,111 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cabinet_Shelf_Desk_2eccafc6-954a-43e7-9c41-ab8fdaeac04c
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 45893e0c8bf352244b3433fe00750df1,
+        type: 3}
+      propertyPath: m_TagString
+      value: Furniture
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 45893e0c8bf352244b3433fe00750df1,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 939605401}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 45893e0c8bf352244b3433fe00750df1,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 939605400}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 45893e0c8bf352244b3433fe00750df1,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 939605399}
   m_SourcePrefab: {fileID: 100100000, guid: 45893e0c8bf352244b3433fe00750df1, type: 3}
+--- !u!4 &939605397 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 45893e0c8bf352244b3433fe00750df1,
+    type: 3}
+  m_PrefabInstance: {fileID: 939605396}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &939605398 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 45893e0c8bf352244b3433fe00750df1,
+    type: 3}
+  m_PrefabInstance: {fileID: 939605396}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &939605399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 939605398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DecisionPeriod: 5
+  DecisionStep: 0
+  TakeActionsBetweenDecisions: 1
+--- !u!114 &939605400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 939605398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b85ad6d51d99db442a75abfeae042a43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentParameters:
+    maxStep: 0
+  hasUpgradedFromAgentParameters: 1
+  MaxStep: 0
+  moveSpeed: 2
+  targetWallDistance: 0.2
+  distanceWeight: 0.5
+  overlapPenalty: 0.2
+  stepPenalty: 0.001
+  myCollider: {fileID: 0}
+  wallTag: Wall
+  furnitureTag: Furniture
+  controller: {fileID: 0}
+--- !u!114 &939605401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 939605398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d1c4e0b1822b495aa52bc52839ecb30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BrainParameters:
+    VectorObservationSize: 5
+    NumStackedVectorObservations: 2
+    m_ActionSpec:
+      m_NumContinuousActions: 0
+      BranchSizes: 04000000
+    VectorActionSize: 04000000
+    VectorActionDescriptions: []
+    VectorActionSpaceType: 0
+    hasUpgradedBrainParametersWithActionSpec: 1
+  m_Model: {fileID: 0}
+  m_InferenceDevice: 0
+  m_BehaviorType: 0
+  m_BehaviorName: OptimizationCollab
+  TeamId: 0
+  m_UseChildSensors: 1
+  m_UseChildActuators: 1
+  m_DeterministicInference: 0
+  m_ObservableAttributeHandling: 0
 --- !u!1 &1374868724
 GameObject:
   m_ObjectHideFlags: 0
@@ -411,7 +611,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1374868725
 Transform:
   m_ObjectHideFlags: 0
@@ -679,7 +879,7 @@ GameObject:
   - component: {fileID: 1514236561}
   m_Layer: 0
   m_Name: Wall (1)
-  m_TagString: wall
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -861,7 +1061,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 1959525475}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: f6f3c4f676f96524f9fc7cebaaeb5cd4,
         type: 3}
@@ -886,7 +1086,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: f6f3c4f676f96524f9fc7cebaaeb5cd4,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f6f3c4f676f96524f9fc7cebaaeb5cd4,
         type: 3}
@@ -918,11 +1118,111 @@ PrefabInstance:
       propertyPath: m_Name
       value: Others_459a3c64-ecd6-4e9d-a1d3-cbe4f6509a06
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f6f3c4f676f96524f9fc7cebaaeb5cd4,
+        type: 3}
+      propertyPath: m_TagString
+      value: Furniture
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f6f3c4f676f96524f9fc7cebaaeb5cd4,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1850359943}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f6f3c4f676f96524f9fc7cebaaeb5cd4,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1850359942}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f6f3c4f676f96524f9fc7cebaaeb5cd4,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1850359941}
   m_SourcePrefab: {fileID: 100100000, guid: f6f3c4f676f96524f9fc7cebaaeb5cd4, type: 3}
+--- !u!4 &1850359939 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: f6f3c4f676f96524f9fc7cebaaeb5cd4,
+    type: 3}
+  m_PrefabInstance: {fileID: 1850359938}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1850359940 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: f6f3c4f676f96524f9fc7cebaaeb5cd4,
+    type: 3}
+  m_PrefabInstance: {fileID: 1850359938}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1850359941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1850359940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DecisionPeriod: 5
+  DecisionStep: 0
+  TakeActionsBetweenDecisions: 1
+--- !u!114 &1850359942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1850359940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b85ad6d51d99db442a75abfeae042a43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentParameters:
+    maxStep: 0
+  hasUpgradedFromAgentParameters: 1
+  MaxStep: 0
+  moveSpeed: 2
+  targetWallDistance: 0.2
+  distanceWeight: 0.5
+  overlapPenalty: 0.2
+  stepPenalty: 0.001
+  myCollider: {fileID: 0}
+  wallTag: Wall
+  furnitureTag: Furniture
+  controller: {fileID: 0}
+--- !u!114 &1850359943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1850359940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d1c4e0b1822b495aa52bc52839ecb30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BrainParameters:
+    VectorObservationSize: 5
+    NumStackedVectorObservations: 2
+    m_ActionSpec:
+      m_NumContinuousActions: 0
+      BranchSizes: 04000000
+    VectorActionSize: 04000000
+    VectorActionDescriptions: []
+    VectorActionSpaceType: 0
+    hasUpgradedBrainParametersWithActionSpec: 1
+  m_Model: {fileID: 0}
+  m_InferenceDevice: 0
+  m_BehaviorType: 0
+  m_BehaviorName: OptimizationCollab
+  TeamId: 0
+  m_UseChildSensors: 1
+  m_UseChildActuators: 1
+  m_DeterministicInference: 0
+  m_ObservableAttributeHandling: 0
 --- !u!1 &1915209059
 GameObject:
   m_ObjectHideFlags: 0
@@ -936,7 +1236,7 @@ GameObject:
   - component: {fileID: 1915209061}
   m_Layer: 0
   m_Name: Wall (3)
-  m_TagString: wall
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -994,6 +1294,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1950371456}
+  - component: {fileID: 1950371457}
   m_Layer: 0
   m_Name: FurnitureEnvController
   m_TagString: Untagged
@@ -1019,6 +1320,22 @@ Transform:
   - {fileID: 1374868725}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1950371457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1950371455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2b58f5202a4a8342b3d7e876096db88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ground: {fileID: 1397278292}
+  agents: []
+  maxEnvironmentSteps: 5000
+  furnitureParent: {fileID: 1959525475}
 --- !u!1 &1959525474
 GameObject:
   m_ObjectHideFlags: 0
@@ -1051,6 +1368,9 @@ Transform:
   - {fileID: 6210532521856591363}
   - {fileID: 9042125862247212966}
   - {fileID: 4182257254974329487}
+  - {fileID: 939605397}
+  - {fileID: 1850359939}
+  - {fileID: 290498498}
   m_Father: {fileID: 1950371456}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2051642879
@@ -1066,7 +1386,7 @@ GameObject:
   - component: {fileID: 2051642881}
   m_Layer: 0
   m_Name: Wall (2)
-  m_TagString: wall
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1148,6 +1468,11 @@ PrefabInstance:
       propertyPath: wallContainer
       value: 
       objectReference: {fileID: 1707684257}
+    - target: {fileID: 919132149155446097, guid: 09dbe21dc4cdc114fa8dc38e51d352aa,
+        type: 3}
+      propertyPath: m_TagString
+      value: Furniture
+      objectReference: {fileID: 0}
     - target: {fileID: 1392447673764723361, guid: 09dbe21dc4cdc114fa8dc38e51d352aa,
         type: 3}
       propertyPath: m_Name
@@ -1217,7 +1542,19 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 09dbe21dc4cdc114fa8dc38e51d352aa,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4182257254974329490}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 09dbe21dc4cdc114fa8dc38e51d352aa,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4182257254974329489}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 09dbe21dc4cdc114fa8dc38e51d352aa,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4182257254974329491}
   m_SourcePrefab: {fileID: 100100000, guid: 09dbe21dc4cdc114fa8dc38e51d352aa, type: 3}
 --- !u!4 &4182257254974329487 stripped
 Transform:
@@ -1225,6 +1562,83 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 4182257254974329486}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &4182257254974329488 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 09dbe21dc4cdc114fa8dc38e51d352aa,
+    type: 3}
+  m_PrefabInstance: {fileID: 4182257254974329486}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4182257254974329489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4182257254974329488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b85ad6d51d99db442a75abfeae042a43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentParameters:
+    maxStep: 0
+  hasUpgradedFromAgentParameters: 1
+  MaxStep: 0
+  moveSpeed: 2
+  targetWallDistance: 0.2
+  distanceWeight: 0.5
+  overlapPenalty: 0.2
+  stepPenalty: 0.001
+  myCollider: {fileID: 0}
+  wallTag: Wall
+  furnitureTag: Furniture
+  controller: {fileID: 0}
+--- !u!114 &4182257254974329490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4182257254974329488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d1c4e0b1822b495aa52bc52839ecb30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BrainParameters:
+    VectorObservationSize: 5
+    NumStackedVectorObservations: 2
+    m_ActionSpec:
+      m_NumContinuousActions: 0
+      BranchSizes: 04000000
+    VectorActionSize: 04000000
+    VectorActionDescriptions: []
+    VectorActionSpaceType: 0
+    hasUpgradedBrainParametersWithActionSpec: 1
+  m_Model: {fileID: 0}
+  m_InferenceDevice: 0
+  m_BehaviorType: 0
+  m_BehaviorName: OptimizationCollab
+  TeamId: 0
+  m_UseChildSensors: 1
+  m_UseChildActuators: 1
+  m_DeterministicInference: 0
+  m_ObservableAttributeHandling: 0
+--- !u!114 &4182257254974329491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4182257254974329488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DecisionPeriod: 5
+  DecisionStep: 0
+  TakeActionsBetweenDecisions: 1
 --- !u!1001 &6210532521856591362
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1233,6 +1647,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1959525475}
     m_Modifications:
+    - target: {fileID: 919132149155446097, guid: bdd2fea9debd18c4bb3f6e95357f65fc,
+        type: 3}
+      propertyPath: m_TagString
+      value: Furniture
+      objectReference: {fileID: 0}
     - target: {fileID: 1153319173534108107, guid: bdd2fea9debd18c4bb3f6e95357f65fc,
         type: 3}
       propertyPath: m_Model
@@ -1317,7 +1736,19 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: bdd2fea9debd18c4bb3f6e95357f65fc,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6210532521856591366}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: bdd2fea9debd18c4bb3f6e95357f65fc,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6210532521856591365}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: bdd2fea9debd18c4bb3f6e95357f65fc,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6210532521856591367}
   m_SourcePrefab: {fileID: 100100000, guid: bdd2fea9debd18c4bb3f6e95357f65fc, type: 3}
 --- !u!4 &6210532521856591363 stripped
 Transform:
@@ -1325,6 +1756,83 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 6210532521856591362}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &6210532521856591364 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: bdd2fea9debd18c4bb3f6e95357f65fc,
+    type: 3}
+  m_PrefabInstance: {fileID: 6210532521856591362}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6210532521856591365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6210532521856591364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b85ad6d51d99db442a75abfeae042a43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentParameters:
+    maxStep: 0
+  hasUpgradedFromAgentParameters: 1
+  MaxStep: 0
+  moveSpeed: 2
+  targetWallDistance: 0.2
+  distanceWeight: 0.5
+  overlapPenalty: 0.2
+  stepPenalty: 0.001
+  myCollider: {fileID: 0}
+  wallTag: Wall
+  furnitureTag: Furniture
+  controller: {fileID: 0}
+--- !u!114 &6210532521856591366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6210532521856591364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d1c4e0b1822b495aa52bc52839ecb30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BrainParameters:
+    VectorObservationSize: 5
+    NumStackedVectorObservations: 2
+    m_ActionSpec:
+      m_NumContinuousActions: 0
+      BranchSizes: 04000000
+    VectorActionSize: 04000000
+    VectorActionDescriptions: []
+    VectorActionSpaceType: 0
+    hasUpgradedBrainParametersWithActionSpec: 1
+  m_Model: {fileID: 0}
+  m_InferenceDevice: 0
+  m_BehaviorType: 0
+  m_BehaviorName: OptimizationCollab
+  TeamId: 0
+  m_UseChildSensors: 1
+  m_UseChildActuators: 1
+  m_DeterministicInference: 0
+  m_ObservableAttributeHandling: 0
+--- !u!114 &6210532521856591367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6210532521856591364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DecisionPeriod: 5
+  DecisionStep: 0
+  TakeActionsBetweenDecisions: 1
 --- !u!1001 &9042125862247212965
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1342,6 +1850,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0.58
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: e992634b7a69b524aaeeb9f87c715638,
+        type: 3}
+      propertyPath: m_TagString
+      value: Furniture
       objectReference: {fileID: 0}
     - target: {fileID: 5835098396344528383, guid: e992634b7a69b524aaeeb9f87c715638,
         type: 3}
@@ -1427,7 +1940,19 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e992634b7a69b524aaeeb9f87c715638,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9042125862247212969}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e992634b7a69b524aaeeb9f87c715638,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9042125862247212968}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e992634b7a69b524aaeeb9f87c715638,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9042125862247212970}
   m_SourcePrefab: {fileID: 100100000, guid: e992634b7a69b524aaeeb9f87c715638, type: 3}
 --- !u!4 &9042125862247212966 stripped
 Transform:
@@ -1435,6 +1960,83 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 9042125862247212965}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &9042125862247212967 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: e992634b7a69b524aaeeb9f87c715638,
+    type: 3}
+  m_PrefabInstance: {fileID: 9042125862247212965}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &9042125862247212968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9042125862247212967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b85ad6d51d99db442a75abfeae042a43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentParameters:
+    maxStep: 0
+  hasUpgradedFromAgentParameters: 1
+  MaxStep: 0
+  moveSpeed: 2
+  targetWallDistance: 0.2
+  distanceWeight: 0.5
+  overlapPenalty: 0.2
+  stepPenalty: 0.001
+  myCollider: {fileID: 0}
+  wallTag: Wall
+  furnitureTag: Furniture
+  controller: {fileID: 0}
+--- !u!114 &9042125862247212969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9042125862247212967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d1c4e0b1822b495aa52bc52839ecb30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BrainParameters:
+    VectorObservationSize: 5
+    NumStackedVectorObservations: 2
+    m_ActionSpec:
+      m_NumContinuousActions: 0
+      BranchSizes: 04000000
+    VectorActionSize: 04000000
+    VectorActionDescriptions: []
+    VectorActionSpaceType: 0
+    hasUpgradedBrainParametersWithActionSpec: 1
+  m_Model: {fileID: 0}
+  m_InferenceDevice: 0
+  m_BehaviorType: 0
+  m_BehaviorName: OptimizationCollab
+  TeamId: 0
+  m_UseChildSensors: 1
+  m_UseChildActuators: 1
+  m_DeterministicInference: 0
+  m_ObservableAttributeHandling: 0
+--- !u!114 &9042125862247212970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9042125862247212967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DecisionPeriod: 5
+  DecisionStep: 0
+  TakeActionsBetweenDecisions: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -1442,6 +2044,3 @@ SceneRoots:
   - {fileID: 1719402127}
   - {fileID: 1467220049}
   - {fileID: 1950371456}
-  - {fileID: 939605396}
-  - {fileID: 1850359938}
-  - {fileID: 290498497}

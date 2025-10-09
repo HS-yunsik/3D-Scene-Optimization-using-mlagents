@@ -1,0 +1,10 @@
+cd C:\Users\HP\Documents\GitHub\3D-Scene-Optimization-using-mlagents
+
+conda activate mlagents
+
+mlagents-learn config\MARL\FurnitureOptimization.yaml --run-id=TestModel --force
+
+텐서보드 확인
+tensorboard --logdir results
+
+http://localhost:6006/
