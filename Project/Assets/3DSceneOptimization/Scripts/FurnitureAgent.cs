@@ -35,7 +35,6 @@ public class FurnitureAgent : Agent
     Collider[] wallColliders;
     Bounds areaBounds;
     SimpleMultiAgentGroup group;
-    float lastDistanceError = 0;
 
 
     public override void Initialize()
@@ -108,6 +107,7 @@ public class FurnitureAgent : Agent
         // 4. 각자 이상 벽 거리, 허용 오차
         sensor.AddObservation(targetWallDistance);
         sensor.AddObservation(distanceTolerance);
+        sensor.AddObservation(rotateTolerance);
     }
 
     public override void OnActionReceived(ActionBuffers actions)
@@ -130,16 +130,8 @@ public class FurnitureAgent : Agent
         GetNearestWallInfo(out float wallDist, out _);
 
         // 거리 오차 계산
-        float error = Mathf.Abs(wallDist - targetWallDistance);
-        float deltaError = lastDistanceError - error;
-
-        // 이전보다 목표 거리에 가까워졌다면 보상, 멀어지면 약한 감점
-        if (deltaError > 0)
-            AddReward(deltaError * distanceWeight);
-        else
-            AddReward(deltaError * distanceWeight * 0.2f); // 감점은 약하게
-
-        lastDistanceError = error;
+        float error = wallDist - targetWallDistance;
+        AddReward(-error);
 
         // 벽 정렬 보상
         Vector3 wallForward = nearestWall.transform.forward;
@@ -154,7 +146,7 @@ public class FurnitureAgent : Agent
         isAtIdealRotate = alignment >= rotateTolerance;
 
         // 벽과 정렬중이면 보상
-        if(isAtIdealDistance)
+        if(isAtIdealRotate)
             AddReward(1.0f);
 
         if (isAtIdealDistance && isAtIdealRotate && !isFrozen)
@@ -162,7 +154,7 @@ public class FurnitureAgent : Agent
             if (!OverlapAt(transform.position))
             {
                 // 정상적으로 벽과 정렬, 겹치지 않음 → 성공
-                AddReward(3.0f);
+                SetReward(10.0f);
                 isFrozen = true;
                 controller.ReportSuccess(this);
             }
@@ -250,16 +242,16 @@ public class FurnitureAgent : Agent
             Vector3 v = new Vector3(wallPoint.x - myPoint.x, 0f, wallPoint.z - myPoint.z);
             float d = v.magnitude;
 
-            if (d < best)
+            Vector3 size = myCollider.bounds.size;
+            float sizeFactor = Mathf.Sqrt(size.x * size.x + size.z * size.z); // XZ 대각선 길이
+            if (d + sizeFactor * 0.3f < best)
             {
                 best = d;
                 bestV = v;
-                nearestWall = w; // Inspector에 표시
-                nearestWallDis = best; // Inspector에 표시
-
+                nearestWall = w;
+                nearestWallDis = d;
             }
         }
-
         distance = best;
         direction = bestV.normalized;
     }
