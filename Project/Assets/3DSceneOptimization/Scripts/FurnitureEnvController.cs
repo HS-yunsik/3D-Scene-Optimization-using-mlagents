@@ -82,6 +82,7 @@ public class FurnitureEnvController : MonoBehaviour
         successCount++;
         if (successCount >= agents.Count)
         {
+            Debug.Log($"모든 에이전트가 목표에 도달했습니다! stepCount={stepCount}");
             group.AddGroupReward(10.0f);
             group.EndGroupEpisode();
             ResetScene();

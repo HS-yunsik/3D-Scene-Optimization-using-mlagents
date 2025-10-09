@@ -261,6 +261,7 @@ MonoBehaviour:
   rotateTolerance: 0.9
   isAtIdealDistance: 0
   isAtIdealRotate: 0
+  isFrozen: 0
   myCollider: {fileID: 0}
   wallTag: Wall
   furnitureTag: Furniture
@@ -280,7 +281,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 10
+    VectorObservationSize: 11
     NumStackedVectorObservations: 2
     m_ActionSpec:
       m_NumContinuousActions: 0
@@ -314,7 +315,7 @@ MonoBehaviour:
   m_DetectableTags:
   - Wall
   - Furniture
-  m_RaysPerDirection: 5
+  m_RaysPerDirection: 2
   m_MaxRayDegrees: 180
   m_SphereCastRadius: 0.2
   m_RayLength: 20
@@ -611,6 +612,7 @@ MonoBehaviour:
   rotateTolerance: 0.9
   isAtIdealDistance: 0
   isAtIdealRotate: 0
+  isFrozen: 0
   myCollider: {fileID: 0}
   wallTag: Wall
   furnitureTag: Furniture
@@ -630,7 +632,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 10
+    VectorObservationSize: 11
     NumStackedVectorObservations: 2
     m_ActionSpec:
       m_NumContinuousActions: 0
@@ -664,7 +666,7 @@ MonoBehaviour:
   m_DetectableTags:
   - Wall
   - Furniture
-  m_RaysPerDirection: 5
+  m_RaysPerDirection: 2
   m_MaxRayDegrees: 180
   m_SphereCastRadius: 0.2
   m_RayLength: 20
@@ -757,7 +759,7 @@ GameObject:
   - component: {fileID: 1397278293}
   m_Layer: 0
   m_Name: Ground
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1279,6 +1281,7 @@ MonoBehaviour:
   rotateTolerance: 0.9
   isAtIdealDistance: 0
   isAtIdealRotate: 0
+  isFrozen: 0
   myCollider: {fileID: 0}
   wallTag: Wall
   furnitureTag: Furniture
@@ -1298,7 +1301,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 10
+    VectorObservationSize: 11
     NumStackedVectorObservations: 2
     m_ActionSpec:
       m_NumContinuousActions: 0
@@ -1332,7 +1335,7 @@ MonoBehaviour:
   m_DetectableTags:
   - Wall
   - Furniture
-  m_RaysPerDirection: 5
+  m_RaysPerDirection: 2
   m_MaxRayDegrees: 180
   m_SphereCastRadius: 0.2
   m_RayLength: 20
@@ -1721,6 +1724,7 @@ MonoBehaviour:
   rotateTolerance: 0.9
   isAtIdealDistance: 0
   isAtIdealRotate: 0
+  isFrozen: 0
   myCollider: {fileID: 0}
   wallTag: Wall
   furnitureTag: Furniture
@@ -1740,7 +1744,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 10
+    VectorObservationSize: 11
     NumStackedVectorObservations: 2
     m_ActionSpec:
       m_NumContinuousActions: 0
@@ -1789,7 +1793,7 @@ MonoBehaviour:
   m_DetectableTags:
   - Wall
   - Furniture
-  m_RaysPerDirection: 5
+  m_RaysPerDirection: 2
   m_MaxRayDegrees: 180
   m_SphereCastRadius: 0.2
   m_RayLength: 20
@@ -1952,10 +1956,11 @@ MonoBehaviour:
   alignmentWeight: 0.5
   overlapPenalty: 0.2
   stepPenalty: 0.001
-  distanceTolerance: 0.2
+  distanceTolerance: 2
   rotateTolerance: 0.9
   isAtIdealDistance: 0
   isAtIdealRotate: 0
+  isFrozen: 0
   myCollider: {fileID: 0}
   wallTag: Wall
   furnitureTag: Furniture
@@ -1975,7 +1980,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 10
+    VectorObservationSize: 11
     NumStackedVectorObservations: 2
     m_ActionSpec:
       m_NumContinuousActions: 0
@@ -2024,7 +2029,7 @@ MonoBehaviour:
   m_DetectableTags:
   - Wall
   - Furniture
-  m_RaysPerDirection: 5
+  m_RaysPerDirection: 2
   m_MaxRayDegrees: 180
   m_SphereCastRadius: 0.2
   m_RayLength: 20
@@ -2197,10 +2202,11 @@ MonoBehaviour:
   alignmentWeight: 0.5
   overlapPenalty: 0.2
   stepPenalty: 0.001
-  distanceTolerance: 0.2
+  distanceTolerance: 2
   rotateTolerance: 0.9
   isAtIdealDistance: 0
   isAtIdealRotate: 0
+  isFrozen: 0
   myCollider: {fileID: 0}
   wallTag: Wall
   furnitureTag: Furniture
@@ -2220,7 +2226,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 10
+    VectorObservationSize: 11
     NumStackedVectorObservations: 2
     m_ActionSpec:
       m_NumContinuousActions: 0
@@ -2269,7 +2275,7 @@ MonoBehaviour:
   m_DetectableTags:
   - Wall
   - Furniture
-  m_RaysPerDirection: 5
+  m_RaysPerDirection: 2
   m_MaxRayDegrees: 180
   m_SphereCastRadius: 0.2
   m_RayLength: 20
