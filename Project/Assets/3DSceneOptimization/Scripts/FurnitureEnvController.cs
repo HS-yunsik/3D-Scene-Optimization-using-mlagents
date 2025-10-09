@@ -10,7 +10,7 @@ public class FurnitureEnvController : MonoBehaviour
 
     [Header("Episode")]
     public int maxEnvironmentSteps = 5000;
-
+    int successCount = 0;
     Collider groundCol;
     Bounds areaBounds;
     SimpleMultiAgentGroup group;
@@ -74,12 +74,24 @@ public class FurnitureEnvController : MonoBehaviour
         }
 
         group.AddGroupReward(-0.5f / Mathf.Max(1, maxEnvironmentSteps));
+
+    }
+
+    public void ReportSuccess(FurnitureAgent a)
+    {
+        successCount++;
+        if (successCount >= agents.Count)
+        {
+            group.AddGroupReward(10.0f);
+            group.EndGroupEpisode();
+            ResetScene();
+        }
     }
 
     public void ResetScene()
     {
         stepCount = 0;
-
+        successCount = 0;
         foreach (var a in agents)
         {
             Vector3 p = SampleSpawn(a);
@@ -87,7 +99,9 @@ public class FurnitureEnvController : MonoBehaviour
             // 0, 90, 180, 270 중 하나 선택
             float yRot = 90f * Random.Range(0, 4);
             Quaternion r = Quaternion.Euler(0f, yRot, 0f);
-
+            a.isFrozen = false;
+            a.isAtIdealDistance = false;
+            a.isAtIdealRotate = false;
             a.Teleport(p, r);
         }
     }
@@ -112,4 +126,5 @@ public class FurnitureEnvController : MonoBehaviour
     {
         return areaBounds;
     }
+
 }

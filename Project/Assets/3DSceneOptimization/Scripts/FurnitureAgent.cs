@@ -20,7 +20,7 @@ public class FurnitureAgent : Agent
 
     public bool isAtIdealDistance = false; // 컨트롤러에서 읽기용
     public bool isAtIdealRotate = false; // 컨트롤러에서 읽기용
-
+    public bool isFrozen = false; // 목표 달성 후 움직이지 않도록
     [Header("Colliders")]
     public Collider myCollider;
     public string wallTag = "Wall";
@@ -65,7 +65,7 @@ public class FurnitureAgent : Agent
         }
 
         wallColliders = found.ToArray();
-
+        GetNearestWallInfo(out float wallDist, out _);
     }
 
     public void RegisterTo(SimpleMultiAgentGroup g)
@@ -113,6 +113,7 @@ public class FurnitureAgent : Agent
 
     public override void OnActionReceived(ActionBuffers actions)
     {
+        if (isFrozen) return;
         int a = actions.DiscreteActions[0];
         Vector3 dir = Vector3.zero;
         if (a == 1) dir = transform.forward;
@@ -123,6 +124,10 @@ public class FurnitureAgent : Agent
         if (a == 6) transform.Rotate(0f, -90f, 0f);
         if (dir != Vector3.zero)
             TryMove(dir * moveSpeed * Time.fixedDeltaTime);
+
+        // 회전은 신중히 결정
+        if (a == 5 || a == 6)
+            AddReward(-stepPenalty * 5f);
 
         // 벽과의 거리 계산
         GetNearestWallInfo(out float wallDist, out _);
@@ -148,16 +153,19 @@ public class FurnitureAgent : Agent
 
         isAtIdealRotate = alignment >= rotateTolerance;
 
-        float comboBonus = 0f;
-
-        if (isAtIdealDistance && isAtIdealRotate)
-            comboBonus = 3.0f;
-        else if (isAtIdealDistance)
-            comboBonus = 1.0f;
-        else if (isAtIdealRotate)
-            comboBonus = 1.0f;
-
-        AddReward(comboBonus);
+        if (!isFrozen)
+        {
+            if (isAtIdealDistance && isAtIdealRotate)
+            {
+                AddReward(3.0f);
+                isFrozen = true;
+                controller.ReportSuccess(this);
+            }
+            else if (isAtIdealDistance || isAtIdealRotate)
+            {
+                AddReward(1.0f);
+            }
+        }
     }
 
     public override void Heuristic(in ActionBuffers actionsOut)
@@ -218,7 +226,6 @@ public class FurnitureAgent : Agent
     {
         distance = float.MaxValue;
         direction = Vector3.zero;
-        nearestWall = null;
 
         if (wallColliders == null || wallColliders.Length == 0)
             return;
