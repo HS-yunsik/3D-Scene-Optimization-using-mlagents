@@ -12,11 +12,14 @@ public class FurnitureAgent : Agent
     [Header("Rewards")]
     public float targetWallDistance = 0.2f;
     public float distanceWeight = 2.0f;
+    public float alignmentWeight = 0.5f; // 벽 정렬 보상 가중치
     public float overlapPenalty = 0.2f;
     public float stepPenalty = 0.001f;
-    public float distanceTolerance = 0.05f; // 허용 오차 (m 단위)
+    public float distanceTolerance = 0.2f; // 허용 오차 (m 단위)
+    public float rotateTolerance = 0.9f; // 허용 오차 (내적값 -1~1)
 
     public bool isAtIdealDistance = false; // 컨트롤러에서 읽기용
+    public bool isAtIdealRotate = false; // 컨트롤러에서 읽기용
 
     [Header("Colliders")]
     public Collider myCollider;
@@ -34,7 +37,7 @@ public class FurnitureAgent : Agent
     SimpleMultiAgentGroup group;
     float lastDistanceError;
 
-   
+
 
 
     public override void Initialize()
@@ -83,18 +86,21 @@ public class FurnitureAgent : Agent
 
     public override void CollectObservations(VectorSensor sensor)
     {
-        // 1. 현재 위치 (정규화)
+        // 1. 현재 위치, 방향 (정규화)
         Vector3 p = transform.position;
         Vector2 span = new Vector2(areaBounds.size.x, areaBounds.size.z);
         Vector2 rel = new Vector2((p.x - areaBounds.min.x) / Mathf.Max(0.001f, span.x),
                                    (p.z - areaBounds.min.z) / Mathf.Max(0.001f, span.y));
 
         sensor.AddObservation(rel);
+        sensor.AddObservation(new Vector2(transform.forward.x, transform.forward.z));
 
         // 2. 가장 가까운 벽과의 거리 및 방향
         GetNearestWallInfo(out float wallDist, out Vector3 wallDir);
         sensor.AddObservation(wallDist);           // 거리 오차
-        sensor.AddObservation(new Vector2(wallDir.x, wallDir.z));       // 방향
+        Vector3 wallForward = nearestWall.transform.forward;
+        sensor.AddObservation(new Vector2(wallForward.x, wallForward.z)); // XY 대신 XZ 평면
+        sensor.AddObservation(new Vector2(wallDir.x, wallDir.z));       // 가까운 벽으로 향하는방향
 
         // 3. 가구 크기 (정규화)
         Vector3 size = myCollider.bounds.size;
@@ -132,8 +138,6 @@ public class FurnitureAgent : Agent
 
         // 이상 거리 도달 여부 갱신
         isAtIdealDistance = error <= distanceTolerance;
-        if(isAtIdealDistance)
-            SetReward(1.0f); // 목표 도달시 큰 보상
 
         // 이전보다 오차가 줄어들면 양의 보상
         float delta = lastDistanceError - error;
@@ -142,6 +146,25 @@ public class FurnitureAgent : Agent
         AddReward(-stepPenalty);
 
         lastDistanceError = error;
+
+        // 2. 벽 정렬 보상
+        Vector3 wallForward = nearestWall.transform.forward;
+        Vector3 agentForward = transform.forward;
+        float alignment = Vector3.Dot(wallForward, agentForward); // 1이면 완벽히 평행
+        AddReward(alignment * alignmentWeight);
+
+        isAtIdealRotate = alignment >= rotateTolerance;
+
+        float comboBonus = 0f;
+
+        if (isAtIdealDistance && isAtIdealRotate)
+            comboBonus = 3.0f;
+        else if (isAtIdealDistance)
+            comboBonus = 1.0f;
+        else if (isAtIdealRotate)
+            comboBonus = 1.0f;
+
+        AddReward(comboBonus);
     }
 
     public override void Heuristic(in ActionBuffers actionsOut)
@@ -166,7 +189,6 @@ public class FurnitureAgent : Agent
         if (OverlapAt(p))
         {
             AddReward(-overlapPenalty);
-            return;
         }
         // if (!OverlapAt(p)) 충돌 체크 후 이동
         transform.position = p;
