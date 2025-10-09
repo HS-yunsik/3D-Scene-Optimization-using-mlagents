@@ -95,13 +95,9 @@ public class FurnitureAgent : Agent
         sensor.AddObservation(rel);
         sensor.AddObservation(new Vector2(transform.forward.x, transform.forward.z));
 
-        // 2. 가장 가까운 벽과의 거리 및 방향
-        GetNearestWallInfo(out float wallDist, out Vector3 wallDir);
-        sensor.AddObservation(wallDist);           // 거리 오차
         Vector3 wallForward = nearestWall.transform.forward;
         sensor.AddObservation(new Vector2(wallForward.x, wallForward.z)); // XY 대신 XZ 평면
-        sensor.AddObservation(new Vector2(wallDir.x, wallDir.z));       // 가까운 벽으로 향하는방향
-
+     
         // 3. 가구 크기 (정규화)
         Vector3 size = myCollider.bounds.size;
         Vector3 normSize = new Vector3(
@@ -113,10 +109,6 @@ public class FurnitureAgent : Agent
 
         // 4. 각자 이상 벽 거리
         sensor.AddObservation(targetWallDistance);
-
-        // 5. 거리 오차 (자신의 이상 거리와 실제 거리 차이)
-        float distanceError = wallDist - targetWallDistance;
-        sensor.AddObservation(distanceError); // 음수면 너무 가까움, 양수면 너무 멂
     }
 
     public override void OnActionReceived(ActionBuffers actions)
@@ -129,7 +121,8 @@ public class FurnitureAgent : Agent
         if (a == 4) dir = transform.right;
         if (a == 5) transform.Rotate(0f, 90f, 0f);
         if (a == 6) transform.Rotate(0f, -90f, 0f);
-        TryMove(dir * moveSpeed * Time.fixedDeltaTime);
+        if (dir != Vector3.zero)
+            TryMove(dir * moveSpeed * Time.fixedDeltaTime);
 
         // 벽과의 거리 계산
         GetNearestWallInfo(out float wallDist, out _);
