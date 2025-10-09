@@ -137,13 +137,7 @@ public class FurnitureAgent : Agent
         // 이상 거리 도달 여부 갱신
         isAtIdealDistance = error <= distanceTolerance;
 
-        // 이전보다 오차가 줄어들면 양의 보상
-        float delta = lastDistanceError - error;
-        AddReward(delta * distanceWeight);
-
-        AddReward(-stepPenalty);
-
-        lastDistanceError = error;
+        AddReward(-error * distanceWeight);
 
         // 2. 벽 정렬 보상
         Vector3 wallForward = nearestWall.transform.forward;
@@ -152,6 +146,8 @@ public class FurnitureAgent : Agent
         AddReward(alignment * alignmentWeight);
 
         isAtIdealRotate = alignment >= rotateTolerance;
+
+        AddReward(-stepPenalty);
 
         if (isAtIdealDistance && isAtIdealRotate && !isFrozen)
         {
@@ -169,6 +165,7 @@ public class FurnitureAgent : Agent
                 isFrozen = false;
             }
         }
+
     }
 
     public override void Heuristic(in ActionBuffers actionsOut)
