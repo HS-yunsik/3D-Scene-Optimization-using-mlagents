@@ -89,7 +89,6 @@ public class FurnitureEnvController : MonoBehaviour
             Quaternion r = Quaternion.Euler(0f, yRot, 0f);
 
             a.Teleport(p, r);
-            a.ClearStats();
         }
     }
 

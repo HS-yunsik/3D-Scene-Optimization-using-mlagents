@@ -28,7 +28,7 @@ public class FurnitureAgent : Agent
     Collider[] wallColliders;
     Bounds areaBounds;
     SimpleMultiAgentGroup group;
-    float lastAbsError;
+    float lastDistanceError;
 
     public override void Initialize()
     {
@@ -74,22 +74,36 @@ public class FurnitureAgent : Agent
         transform.SetPositionAndRotation(p, r);
     }
 
-    public void ClearStats()
-    {
-        lastAbsError = Mathf.Abs(CurrentWallError());
-    }
-
     public override void CollectObservations(VectorSensor sensor)
     {
+        // 1. 현재 위치 (정규화)
         Vector3 p = transform.position;
         Vector2 span = new Vector2(areaBounds.size.x, areaBounds.size.z);
         Vector2 rel = new Vector2((p.x - areaBounds.min.x) / Mathf.Max(0.001f, span.x),
                                    (p.z - areaBounds.min.z) / Mathf.Max(0.001f, span.y));
 
         sensor.AddObservation(rel);
+
+        // 2. 가장 가까운 벽과의 거리 및 방향
         GetNearestWallInfo(out float wallDist, out Vector3 wallDir);
-        sensor.AddObservation(wallDist - targetWallDistance);           // 거리 오차
+        sensor.AddObservation(wallDist);           // 거리 오차
         sensor.AddObservation(new Vector2(wallDir.x, wallDir.z));       // 방향
+
+        // 3. 가구 크기 (정규화)
+        Vector3 size = myCollider.bounds.size;
+        Vector3 normSize = new Vector3(
+            size.x / areaBounds.size.x,
+            size.y / areaBounds.size.y,
+            size.z / areaBounds.size.z
+        );
+        sensor.AddObservation(normSize);
+
+        // 4. 각자 이상 벽 거리
+        sensor.AddObservation(targetWallDistance);
+
+        // 5. 거리 오차 (자신의 이상 거리와 실제 거리 차이)
+        float distanceError = wallDist - targetWallDistance;
+        sensor.AddObservation(distanceError); // 음수면 너무 가까움, 양수면 너무 멂
     }
 
     public override void OnActionReceived(ActionBuffers actions)
@@ -100,15 +114,20 @@ public class FurnitureAgent : Agent
         if (a == 2) dir = -transform.forward;
         if (a == 3) dir = -transform.right;
         if (a == 4) dir = transform.right;
-
         TryMove(dir * moveSpeed * Time.fixedDeltaTime);
 
-        float absErr = Mathf.Abs(CurrentWallError());
-        float delta = lastAbsError - absErr;
-        AddReward(distanceWeight * delta);
-        lastAbsError = absErr;
+        // 벽과의 거리 계산
+        GetNearestWallInfo(out float wallDist, out _);
+        // 절댓값 오차
+        float error = Mathf.Abs(wallDist - targetWallDistance);
+
+        // 이전보다 오차가 줄어들면 양의 보상
+        float delta = lastDistanceError - error;
+        AddReward(delta * distanceWeight);
 
         AddReward(-stepPenalty);
+
+        lastDistanceError = error;
     }
 
     public override void Heuristic(in ActionBuffers actionsOut)
@@ -198,13 +217,6 @@ public class FurnitureAgent : Agent
         distance = best;
         direction = bestV.normalized;
     }
-
-    float CurrentWallError()
-    {
-        GetNearestWallInfo(out float wallDist, out _);
-        return wallDist - targetWallDistance;
-    }
-
     // Debug용
     void OnDrawGizmosSelected()
     {

@@ -255,6 +255,7 @@ MonoBehaviour:
   myCollider: {fileID: 0}
   wallTag: Wall
   furnitureTag: Furniture
+  nearestWall: {fileID: 0}
   controller: {fileID: 0}
 --- !u!114 &290498502
 MonoBehaviour:
@@ -269,7 +270,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 5
+    VectorObservationSize: 10
     NumStackedVectorObservations: 2
     m_ActionSpec:
       m_NumContinuousActions: 0
@@ -564,6 +565,7 @@ MonoBehaviour:
   myCollider: {fileID: 0}
   wallTag: Wall
   furnitureTag: Furniture
+  nearestWall: {fileID: 0}
   controller: {fileID: 0}
 --- !u!114 &939605401
 MonoBehaviour:
@@ -578,7 +580,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 5
+    VectorObservationSize: 10
     NumStackedVectorObservations: 2
     m_ActionSpec:
       m_NumContinuousActions: 0
@@ -1184,13 +1186,14 @@ MonoBehaviour:
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
   moveSpeed: 2
-  targetWallDistance: 0.2
+  targetWallDistance: 2
   distanceWeight: 0.5
   overlapPenalty: 0.2
   stepPenalty: 0.001
   myCollider: {fileID: 0}
   wallTag: Wall
   furnitureTag: Furniture
+  nearestWall: {fileID: 0}
   controller: {fileID: 0}
 --- !u!114 &1850359943
 MonoBehaviour:
@@ -1205,7 +1208,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 5
+    VectorObservationSize: 10
     NumStackedVectorObservations: 2
     m_ActionSpec:
       m_NumContinuousActions: 0
@@ -1592,6 +1595,7 @@ MonoBehaviour:
   myCollider: {fileID: 0}
   wallTag: Wall
   furnitureTag: Furniture
+  nearestWall: {fileID: 0}
   controller: {fileID: 0}
 --- !u!114 &4182257254974329490
 MonoBehaviour:
@@ -1606,7 +1610,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 5
+    VectorObservationSize: 10
     NumStackedVectorObservations: 2
     m_ActionSpec:
       m_NumContinuousActions: 0
@@ -1779,13 +1783,14 @@ MonoBehaviour:
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
   moveSpeed: 2
-  targetWallDistance: 0.2
+  targetWallDistance: 2
   distanceWeight: 0.5
   overlapPenalty: 0.2
   stepPenalty: 0.001
   myCollider: {fileID: 0}
   wallTag: Wall
   furnitureTag: Furniture
+  nearestWall: {fileID: 0}
   controller: {fileID: 0}
 --- !u!114 &6210532521856591366
 MonoBehaviour:
@@ -1800,7 +1805,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 5
+    VectorObservationSize: 10
     NumStackedVectorObservations: 2
     m_ActionSpec:
       m_NumContinuousActions: 0
@@ -1983,13 +1988,14 @@ MonoBehaviour:
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
   moveSpeed: 2
-  targetWallDistance: 0.2
+  targetWallDistance: 2
   distanceWeight: 0.5
   overlapPenalty: 0.2
   stepPenalty: 0.001
   myCollider: {fileID: 0}
   wallTag: Wall
   furnitureTag: Furniture
+  nearestWall: {fileID: 0}
   controller: {fileID: 0}
 --- !u!114 &9042125862247212969
 MonoBehaviour:
@@ -2004,7 +2010,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 5
+    VectorObservationSize: 10
     NumStackedVectorObservations: 2
     m_ActionSpec:
       m_NumContinuousActions: 0
