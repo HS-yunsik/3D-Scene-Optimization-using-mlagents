@@ -20,6 +20,9 @@ public class FurnitureAgent : Agent
     public string wallTag = "Wall";
     public string furnitureTag = "Furniture";
 
+    [Header("References")]
+    public Collider nearestWall;   // Inspector에서 확인용
+
     [HideInInspector] public FurnitureEnvController controller;
 
     Collider[] wallColliders;
@@ -82,13 +85,11 @@ public class FurnitureAgent : Agent
         Vector2 span = new Vector2(areaBounds.size.x, areaBounds.size.z);
         Vector2 rel = new Vector2((p.x - areaBounds.min.x) / Mathf.Max(0.001f, span.x),
                                    (p.z - areaBounds.min.z) / Mathf.Max(0.001f, span.y));
+
         sensor.AddObservation(rel);
-
-        float err = CurrentWallError();
-        sensor.AddObservation(err);
-
-        Vector3 dirToWall = DirToNearestWallXZ();
-        sensor.AddObservation(new Vector2(dirToWall.x, dirToWall.z));
+        GetNearestWallInfo(out float wallDist, out Vector3 wallDir);
+        sensor.AddObservation(wallDist - targetWallDistance);           // 거리 오차
+        sensor.AddObservation(new Vector2(wallDir.x, wallDir.z));       // 방향
     }
 
     public override void OnActionReceived(ActionBuffers actions)
@@ -108,9 +109,6 @@ public class FurnitureAgent : Agent
         lastAbsError = absErr;
 
         AddReward(-stepPenalty);
-
-        if (OverlappingOthers())
-            AddReward(-overlapPenalty);
     }
 
     public override void Heuristic(in ActionBuffers actionsOut)
@@ -132,8 +130,13 @@ public class FurnitureAgent : Agent
         p.z = Mathf.Clamp(p.z, areaBounds.min.z + half.y, areaBounds.max.z - half.y);
         p.y = areaBounds.center.y;
 
-        if (!OverlapAt(p))
-            transform.position = p;
+        if (OverlapAt(p))
+        {
+            AddReward(-overlapPenalty);
+            return;
+        }
+        // if (!OverlapAt(p)) 충돌 체크 후 이동
+        transform.position = p;
     }
 
     public bool OverlapAt(Vector3 center)
@@ -163,33 +166,14 @@ public class FurnitureAgent : Agent
         var e = myCollider.bounds.extents;
         return new Vector2(e.x, e.z);
     }
-
-    float CurrentWallError()
+    void GetNearestWallInfo(out float distance, out Vector3 direction)
     {
-        float d = NearestWallDistanceXZ();
-        return d - targetWallDistance;
-    }
+        distance = float.MaxValue;
+        direction = Vector3.zero;
+        nearestWall = null;
 
-    float NearestWallDistanceXZ()
-    {
-        if (wallColliders == null || wallColliders.Length == 0) return 1f;
-
-        Vector3 c = myCollider.bounds.center;
-        float best = float.MaxValue;
-
-        foreach (var w in wallColliders)
-        {
-            Vector3 q = w.ClosestPoint(c);
-            Vector3 v = new Vector3(q.x - c.x, 0f, q.z - c.z);
-            float d = v.magnitude;
-            if (d < best) best = d;
-        }
-        return best;
-    }
-
-    Vector3 DirToNearestWallXZ()
-    {
-        if (wallColliders == null || wallColliders.Length == 0) return Vector3.zero;
+        if (wallColliders == null || wallColliders.Length == 0)
+            return;
 
         Vector3 c = myCollider.bounds.center;
         float best = float.MaxValue;
@@ -197,8 +181,7 @@ public class FurnitureAgent : Agent
 
         foreach (var w in wallColliders)
         {
-            // 내 콜라이더 표면에서 벽 표면까지 최단 거리 계산
-            Vector3 wallPoint = w.ClosestPoint(myCollider.bounds.center);
+            Vector3 wallPoint = w.ClosestPoint(c);
             Vector3 myPoint = myCollider.ClosestPoint(wallPoint);
 
             Vector3 v = new Vector3(wallPoint.x - myPoint.x, 0f, wallPoint.z - myPoint.z);
@@ -208,8 +191,25 @@ public class FurnitureAgent : Agent
             {
                 best = d;
                 bestV = v;
+                nearestWall = w; // Inspector에 표시
             }
         }
-        return bestV.normalized;
+
+        distance = best;
+        direction = bestV.normalized;
+    }
+
+    float CurrentWallError()
+    {
+        GetNearestWallInfo(out float wallDist, out _);
+        return wallDist - targetWallDistance;
+    }
+
+    // Debug용
+    void OnDrawGizmosSelected()
+    {
+        if (nearestWall == null) return;
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawLine(myCollider.bounds.center, nearestWall.ClosestPoint(myCollider.bounds.center));
     }
 }
