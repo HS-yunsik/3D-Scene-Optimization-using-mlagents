@@ -153,17 +153,20 @@ public class FurnitureAgent : Agent
 
         isAtIdealRotate = alignment >= rotateTolerance;
 
-        if (!isFrozen)
+        if (isAtIdealDistance && isAtIdealRotate && !isFrozen)
         {
-            if (isAtIdealDistance && isAtIdealRotate)
+            if (!OverlapAt(transform.position))
             {
+                // 정상적으로 벽과 정렬, 겹치지 않음 → 성공
                 AddReward(3.0f);
                 isFrozen = true;
                 controller.ReportSuccess(this);
             }
-            else if (isAtIdealDistance || isAtIdealRotate)
+            else
             {
-                AddReward(1.0f);
+                // 겹쳐 있는 상태에서 멈추려 함 → 감점 및 Frozen 금지
+                AddReward(-1.0f);
+                isFrozen = false;
             }
         }
     }
