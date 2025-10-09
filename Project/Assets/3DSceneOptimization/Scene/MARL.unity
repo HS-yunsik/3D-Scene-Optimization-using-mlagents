@@ -254,14 +254,15 @@ MonoBehaviour:
   moveSpeed: 2
   targetWallDistance: 0.2
   distanceWeight: 0.5
-  alignmentWeight: 0.5
-  overlapPenalty: 0.2
+  alignmentWeight: 1
+  overlapPenalty: 1
   stepPenalty: 0.001
-  distanceTolerance: 0.2
+  distanceTolerance: 0.5
   rotateTolerance: 0.9
   isAtIdealDistance: 0
   isAtIdealRotate: 0
   isFrozen: 0
+  deadLock: 0
   myCollider: {fileID: 0}
   wallTag: Wall
   furnitureTag: Furniture
@@ -281,12 +282,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 11
+    VectorObservationSize: 12
     NumStackedVectorObservations: 2
     m_ActionSpec:
       m_NumContinuousActions: 0
-      BranchSizes: 07000000
-    VectorActionSize: 07000000
+      BranchSizes: 09000000
+    VectorActionSize: 09000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
     hasUpgradedBrainParametersWithActionSpec: 1
@@ -315,10 +316,10 @@ MonoBehaviour:
   m_DetectableTags:
   - Wall
   - Furniture
-  m_RaysPerDirection: 2
+  m_RaysPerDirection: 8
   m_MaxRayDegrees: 180
   m_SphereCastRadius: 0.2
-  m_RayLength: 20
+  m_RayLength: 10
   m_RayLayerMask:
     serializedVersion: 2
     m_Bits: 4294967291
@@ -605,14 +606,15 @@ MonoBehaviour:
   moveSpeed: 2
   targetWallDistance: 0.2
   distanceWeight: 0.5
-  alignmentWeight: 0.5
-  overlapPenalty: 0.2
+  alignmentWeight: 1
+  overlapPenalty: 1
   stepPenalty: 0.001
   distanceTolerance: 0.2
   rotateTolerance: 0.9
   isAtIdealDistance: 0
   isAtIdealRotate: 0
   isFrozen: 0
+  deadLock: 0
   myCollider: {fileID: 0}
   wallTag: Wall
   furnitureTag: Furniture
@@ -632,12 +634,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 11
+    VectorObservationSize: 12
     NumStackedVectorObservations: 2
     m_ActionSpec:
       m_NumContinuousActions: 0
-      BranchSizes: 07000000
-    VectorActionSize: 07000000
+      BranchSizes: 09000000
+    VectorActionSize: 09000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
     hasUpgradedBrainParametersWithActionSpec: 1
@@ -666,10 +668,10 @@ MonoBehaviour:
   m_DetectableTags:
   - Wall
   - Furniture
-  m_RaysPerDirection: 2
+  m_RaysPerDirection: 8
   m_MaxRayDegrees: 180
   m_SphereCastRadius: 0.2
-  m_RayLength: 20
+  m_RayLength: 10
   m_RayLayerMask:
     serializedVersion: 2
     m_Bits: 4294967291
@@ -1274,14 +1276,15 @@ MonoBehaviour:
   moveSpeed: 2
   targetWallDistance: 2
   distanceWeight: 0.5
-  alignmentWeight: 0.5
-  overlapPenalty: 0.2
+  alignmentWeight: 1
+  overlapPenalty: 1
   stepPenalty: 0.001
   distanceTolerance: 0.2
   rotateTolerance: 0.9
   isAtIdealDistance: 0
   isAtIdealRotate: 0
   isFrozen: 0
+  deadLock: 0
   myCollider: {fileID: 0}
   wallTag: Wall
   furnitureTag: Furniture
@@ -1301,12 +1304,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 11
+    VectorObservationSize: 12
     NumStackedVectorObservations: 2
     m_ActionSpec:
       m_NumContinuousActions: 0
-      BranchSizes: 07000000
-    VectorActionSize: 07000000
+      BranchSizes: 09000000
+    VectorActionSize: 09000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
     hasUpgradedBrainParametersWithActionSpec: 1
@@ -1335,10 +1338,10 @@ MonoBehaviour:
   m_DetectableTags:
   - Wall
   - Furniture
-  m_RaysPerDirection: 2
+  m_RaysPerDirection: 8
   m_MaxRayDegrees: 180
   m_SphereCastRadius: 0.2
-  m_RayLength: 20
+  m_RayLength: 10
   m_RayLayerMask:
     serializedVersion: 2
     m_Bits: 4294967291
@@ -1717,14 +1720,15 @@ MonoBehaviour:
   moveSpeed: 2
   targetWallDistance: 0.2
   distanceWeight: 0.5
-  alignmentWeight: 0.5
-  overlapPenalty: 0.2
+  alignmentWeight: 1
+  overlapPenalty: 1
   stepPenalty: 0.001
   distanceTolerance: 0.2
   rotateTolerance: 0.9
   isAtIdealDistance: 0
   isAtIdealRotate: 0
   isFrozen: 0
+  deadLock: 0
   myCollider: {fileID: 0}
   wallTag: Wall
   furnitureTag: Furniture
@@ -1744,12 +1748,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 11
+    VectorObservationSize: 12
     NumStackedVectorObservations: 2
     m_ActionSpec:
       m_NumContinuousActions: 0
-      BranchSizes: 07000000
-    VectorActionSize: 07000000
+      BranchSizes: 09000000
+    VectorActionSize: 09000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
     hasUpgradedBrainParametersWithActionSpec: 1
@@ -1793,10 +1797,10 @@ MonoBehaviour:
   m_DetectableTags:
   - Wall
   - Furniture
-  m_RaysPerDirection: 2
+  m_RaysPerDirection: 8
   m_MaxRayDegrees: 180
   m_SphereCastRadius: 0.2
-  m_RayLength: 20
+  m_RayLength: 10
   m_RayLayerMask:
     serializedVersion: 2
     m_Bits: 4294967291
@@ -1953,14 +1957,15 @@ MonoBehaviour:
   moveSpeed: 2
   targetWallDistance: 2
   distanceWeight: 0.5
-  alignmentWeight: 0.5
-  overlapPenalty: 0.2
+  alignmentWeight: 1
+  overlapPenalty: 1
   stepPenalty: 0.001
   distanceTolerance: 2
   rotateTolerance: 0.9
   isAtIdealDistance: 0
   isAtIdealRotate: 0
   isFrozen: 0
+  deadLock: 0
   myCollider: {fileID: 0}
   wallTag: Wall
   furnitureTag: Furniture
@@ -1980,12 +1985,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 11
+    VectorObservationSize: 12
     NumStackedVectorObservations: 2
     m_ActionSpec:
       m_NumContinuousActions: 0
-      BranchSizes: 07000000
-    VectorActionSize: 07000000
+      BranchSizes: 09000000
+    VectorActionSize: 09000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
     hasUpgradedBrainParametersWithActionSpec: 1
@@ -2029,10 +2034,10 @@ MonoBehaviour:
   m_DetectableTags:
   - Wall
   - Furniture
-  m_RaysPerDirection: 2
+  m_RaysPerDirection: 8
   m_MaxRayDegrees: 180
   m_SphereCastRadius: 0.2
-  m_RayLength: 20
+  m_RayLength: 10
   m_RayLayerMask:
     serializedVersion: 2
     m_Bits: 4294967291
@@ -2199,14 +2204,15 @@ MonoBehaviour:
   moveSpeed: 2
   targetWallDistance: 2
   distanceWeight: 0.5
-  alignmentWeight: 0.5
-  overlapPenalty: 0.2
+  alignmentWeight: 1
+  overlapPenalty: 1
   stepPenalty: 0.001
   distanceTolerance: 2
   rotateTolerance: 0.9
   isAtIdealDistance: 0
   isAtIdealRotate: 0
   isFrozen: 0
+  deadLock: 0
   myCollider: {fileID: 0}
   wallTag: Wall
   furnitureTag: Furniture
@@ -2226,12 +2232,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 11
+    VectorObservationSize: 12
     NumStackedVectorObservations: 2
     m_ActionSpec:
       m_NumContinuousActions: 0
-      BranchSizes: 07000000
-    VectorActionSize: 07000000
+      BranchSizes: 09000000
+    VectorActionSize: 09000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
     hasUpgradedBrainParametersWithActionSpec: 1
@@ -2275,10 +2281,10 @@ MonoBehaviour:
   m_DetectableTags:
   - Wall
   - Furniture
-  m_RaysPerDirection: 2
+  m_RaysPerDirection: 8
   m_MaxRayDegrees: 180
   m_SphereCastRadius: 0.2
-  m_RayLength: 20
+  m_RayLength: 10
   m_RayLayerMask:
     serializedVersion: 2
     m_Bits: 4294967291
