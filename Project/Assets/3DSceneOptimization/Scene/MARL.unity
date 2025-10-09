@@ -252,10 +252,13 @@ MonoBehaviour:
   distanceWeight: 0.5
   overlapPenalty: 0.2
   stepPenalty: 0.001
+  distanceTolerance: 0.2
+  isAtIdealDistance: 0
   myCollider: {fileID: 0}
   wallTag: Wall
   furnitureTag: Furniture
   nearestWall: {fileID: 0}
+  nearestWallDis: 0
   controller: {fileID: 0}
 --- !u!114 &290498502
 MonoBehaviour:
@@ -274,8 +277,8 @@ MonoBehaviour:
     NumStackedVectorObservations: 2
     m_ActionSpec:
       m_NumContinuousActions: 0
-      BranchSizes: 04000000
-    VectorActionSize: 04000000
+      BranchSizes: 07000000
+    VectorActionSize: 07000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
     hasUpgradedBrainParametersWithActionSpec: 1
@@ -562,10 +565,13 @@ MonoBehaviour:
   distanceWeight: 0.5
   overlapPenalty: 0.2
   stepPenalty: 0.001
+  distanceTolerance: 0.2
+  isAtIdealDistance: 0
   myCollider: {fileID: 0}
   wallTag: Wall
   furnitureTag: Furniture
   nearestWall: {fileID: 0}
+  nearestWallDis: 0
   controller: {fileID: 0}
 --- !u!114 &939605401
 MonoBehaviour:
@@ -584,8 +590,8 @@ MonoBehaviour:
     NumStackedVectorObservations: 2
     m_ActionSpec:
       m_NumContinuousActions: 0
-      BranchSizes: 04000000
-    VectorActionSize: 04000000
+      BranchSizes: 07000000
+    VectorActionSize: 07000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
     hasUpgradedBrainParametersWithActionSpec: 1
@@ -1190,10 +1196,13 @@ MonoBehaviour:
   distanceWeight: 0.5
   overlapPenalty: 0.2
   stepPenalty: 0.001
+  distanceTolerance: 0.2
+  isAtIdealDistance: 0
   myCollider: {fileID: 0}
   wallTag: Wall
   furnitureTag: Furniture
   nearestWall: {fileID: 0}
+  nearestWallDis: 0
   controller: {fileID: 0}
 --- !u!114 &1850359943
 MonoBehaviour:
@@ -1212,8 +1221,8 @@ MonoBehaviour:
     NumStackedVectorObservations: 2
     m_ActionSpec:
       m_NumContinuousActions: 0
-      BranchSizes: 04000000
-    VectorActionSize: 04000000
+      BranchSizes: 07000000
+    VectorActionSize: 07000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
     hasUpgradedBrainParametersWithActionSpec: 1
@@ -1592,10 +1601,13 @@ MonoBehaviour:
   distanceWeight: 0.5
   overlapPenalty: 0.2
   stepPenalty: 0.001
+  distanceTolerance: 0.2
+  isAtIdealDistance: 0
   myCollider: {fileID: 0}
   wallTag: Wall
   furnitureTag: Furniture
   nearestWall: {fileID: 0}
+  nearestWallDis: 0
   controller: {fileID: 0}
 --- !u!114 &4182257254974329490
 MonoBehaviour:
@@ -1614,8 +1626,8 @@ MonoBehaviour:
     NumStackedVectorObservations: 2
     m_ActionSpec:
       m_NumContinuousActions: 0
-      BranchSizes: 04000000
-    VectorActionSize: 04000000
+      BranchSizes: 07000000
+    VectorActionSize: 07000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
     hasUpgradedBrainParametersWithActionSpec: 1
@@ -1787,10 +1799,13 @@ MonoBehaviour:
   distanceWeight: 0.5
   overlapPenalty: 0.2
   stepPenalty: 0.001
+  distanceTolerance: 0.2
+  isAtIdealDistance: 0
   myCollider: {fileID: 0}
   wallTag: Wall
   furnitureTag: Furniture
   nearestWall: {fileID: 0}
+  nearestWallDis: 0
   controller: {fileID: 0}
 --- !u!114 &6210532521856591366
 MonoBehaviour:
@@ -1809,8 +1824,8 @@ MonoBehaviour:
     NumStackedVectorObservations: 2
     m_ActionSpec:
       m_NumContinuousActions: 0
-      BranchSizes: 04000000
-    VectorActionSize: 04000000
+      BranchSizes: 07000000
+    VectorActionSize: 07000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
     hasUpgradedBrainParametersWithActionSpec: 1
@@ -1992,10 +2007,13 @@ MonoBehaviour:
   distanceWeight: 0.5
   overlapPenalty: 0.2
   stepPenalty: 0.001
+  distanceTolerance: 0.2
+  isAtIdealDistance: 0
   myCollider: {fileID: 0}
   wallTag: Wall
   furnitureTag: Furniture
   nearestWall: {fileID: 0}
+  nearestWallDis: 0
   controller: {fileID: 0}
 --- !u!114 &9042125862247212969
 MonoBehaviour:
@@ -2014,8 +2032,8 @@ MonoBehaviour:
     NumStackedVectorObservations: 2
     m_ActionSpec:
       m_NumContinuousActions: 0
-      BranchSizes: 04000000
-    VectorActionSize: 04000000
+      BranchSizes: 07000000
+    VectorActionSize: 07000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
     hasUpgradedBrainParametersWithActionSpec: 1

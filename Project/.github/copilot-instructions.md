@@ -2,7 +2,7 @@
 - Project name: Project
 - Unity version: Unity 6000.0.40f1
 - Active game object:
-  - Name: Bed_1f44b15a-8c3d-409d-80f1-20dc77cb9778
+  - Name: Others_6d7e5fc1-1f39-479f-9a26-6e3b208a37ff
   - Tag: Furniture
   - Layer: Default
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->

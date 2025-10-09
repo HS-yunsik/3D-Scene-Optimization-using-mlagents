@@ -11,9 +11,12 @@ public class FurnitureAgent : Agent
     public float moveSpeed = 2f;
     [Header("Rewards")]
     public float targetWallDistance = 0.2f;
-    public float distanceWeight = 0.5f;
+    public float distanceWeight = 2.0f;
     public float overlapPenalty = 0.2f;
     public float stepPenalty = 0.001f;
+    public float distanceTolerance = 0.05f; // 허용 오차 (m 단위)
+
+    public bool isAtIdealDistance = false; // 컨트롤러에서 읽기용
 
     [Header("Colliders")]
     public Collider myCollider;
@@ -22,6 +25,7 @@ public class FurnitureAgent : Agent
 
     [Header("References")]
     public Collider nearestWall;   // Inspector에서 확인용
+    public float nearestWallDis;   // Inspector에서 확인용
 
     [HideInInspector] public FurnitureEnvController controller;
 
@@ -29,6 +33,9 @@ public class FurnitureAgent : Agent
     Bounds areaBounds;
     SimpleMultiAgentGroup group;
     float lastDistanceError;
+
+   
+
 
     public override void Initialize()
     {
@@ -114,12 +121,19 @@ public class FurnitureAgent : Agent
         if (a == 2) dir = -transform.forward;
         if (a == 3) dir = -transform.right;
         if (a == 4) dir = transform.right;
+        if (a == 5) transform.Rotate(0f, 90f, 0f);
+        if (a == 6) transform.Rotate(0f, -90f, 0f);
         TryMove(dir * moveSpeed * Time.fixedDeltaTime);
 
         // 벽과의 거리 계산
         GetNearestWallInfo(out float wallDist, out _);
         // 절댓값 오차
         float error = Mathf.Abs(wallDist - targetWallDistance);
+
+        // 이상 거리 도달 여부 갱신
+        isAtIdealDistance = error <= distanceTolerance;
+        if(isAtIdealDistance)
+            SetReward(1.0f); // 목표 도달시 큰 보상
 
         // 이전보다 오차가 줄어들면 양의 보상
         float delta = lastDistanceError - error;
@@ -211,6 +225,8 @@ public class FurnitureAgent : Agent
                 best = d;
                 bestV = v;
                 nearestWall = w; // Inspector에 표시
+                nearestWallDis = best; // Inspector에 표시
+
             }
         }
 
