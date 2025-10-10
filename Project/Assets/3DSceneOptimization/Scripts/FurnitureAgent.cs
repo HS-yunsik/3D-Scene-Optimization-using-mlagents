@@ -180,7 +180,7 @@ public class FurnitureAgent : Agent
 
     private void HandleMovingPhase(ActionBuffers actions)
     {
-        // 이동 액션 처리 (기존과 동일)
+        // 이동 액션 처리
         int moveAction = actions.DiscreteActions[0];
         Vector3 dir = Vector3.zero;
         if (moveAction == 1) dir = transform.forward;
@@ -190,6 +190,7 @@ public class FurnitureAgent : Agent
 
         if (dir != Vector3.zero)
             TryMove(dir * moveSpeed * Time.fixedDeltaTime);
+
 
         foreach (var other in otherAgents)
         {
@@ -287,9 +288,6 @@ public class FurnitureAgent : Agent
         if (Input.GetKeyDown(KeyCode.LeftArrow)) d[1] = 4;   // -X
     }
 
-    // --- 아래 함수들은 기존 로직과 거의 동일 ---
-    // TryMove, OverlapAt, HalfSizeXZ, GetNearestWallInfo, OnDrawGizmosSelected
-    // (기존 코드와 동일하므로 생략)
     void TryMove(Vector3 delta)
     {
         Vector3 p = transform.position + delta;
