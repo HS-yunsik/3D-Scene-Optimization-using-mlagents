@@ -178,12 +178,9 @@ public class FurnitureAgent : Agent
         }
     }
 
-    /// <summary>
-    /// 1단계: 이동 페이즈 처리
-    /// </summary>
     private void HandleMovingPhase(ActionBuffers actions)
     {
-        // 이동 액션만 처리 (0:정지, 1:앞, 2:뒤, 3:왼쪽, 4:오른쪽)
+        // 이동 액션 처리 (기존과 동일)
         int moveAction = actions.DiscreteActions[0];
         Vector3 dir = Vector3.zero;
         if (moveAction == 1) dir = transform.forward;
@@ -194,51 +191,35 @@ public class FurnitureAgent : Agent
         if (dir != Vector3.zero)
             TryMove(dir * moveSpeed * Time.fixedDeltaTime);
 
-        // --- 보상 로직 wallDist는 객체 중심부터 가장 가까운 벽 표면까지의 거리 ---
-        GetNearestWallInfo(out float wallDist, out _);
-        float currentError = Mathf.Abs(wallDist - targetWallDistance);
-
-        // 목표 거리에 가까울수록 큰 보상 (1에서 오차 비율을 뺀 값)
-        AddReward(-(currentError * currentError) * distanceWeight);
-
-        // 2. 이전보다 더 가까워졌는지 확인하고 '진전'에 대한 보상 추가
-        float progress = previousDistanceError - currentError;
-        AddReward(progress * 2.0f); // '진전' 보상 가중치는 튜닝 필요
-        previousDistanceError = currentError;
-
         foreach (var other in otherAgents)
         {
-            // 다른 에이전트가 비활성(얼어붙음) 상태가 아니거나, 너무 멀리 있으면 무시
             if (other.isFrozen || Vector3.Distance(transform.position, other.transform.position) > personalSpaceRadius)
             {
                 continue;
             }
-
             float distance = Vector3.Distance(transform.position, other.transform.position);
-
-            // 거리가 가까울수록 기하급수적으로 큰 페널티를 부여 (1 / 거리^2)
-            // 아주 가까울 때 폭발적인 페널티를 주어 접근을 막음
             float penalty = -(1f / (distance * distance)) * proximityPenaltyWeight;
             AddReward(penalty);
         }
 
-        isAtIdealDistance = currentError <= distanceTolerance;
+        // 목표 도달 여부 판단을 위한 거리 계산 (보상 없이 계산만 수행)
+        GetNearestWallInfo(out float finalWallDist, out _);
+        float finalCurrentError = Mathf.Abs(finalWallDist - targetWallDistance);
+        isAtIdealDistance = finalCurrentError <= distanceTolerance;
 
-        // ✨ 목표 거리에 도달하면 2단계(회전)으로 전환
+        // 목표 거리에 도달하면 2단계(회전)으로 전환 (유지)
         if (isAtIdealDistance)
         {
-            // 단, 다른 가구와 겹친 상태라면 전환하지 않음
             if (OverlapAt(transform.position))
             {
                 AddReward(-overlapPenalty);
                 return;
             }
-
-            // 페이즈 전환 성공 보상
-            AddReward(1.0f);
+            AddReward(1.0f); // 페이즈 전환 성공 보상
             currentPhase = AgentPhase.Rotating;
         }
     }
+
 
     /// <summary>
     /// 2단계: 회전 페이즈 처리
