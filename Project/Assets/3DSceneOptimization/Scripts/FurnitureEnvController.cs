@@ -1,6 +1,7 @@
 using System.Collections.Generic;
-using UnityEngine;
 using Unity.MLAgents;
+using UnityEditor.PackageManager;
+using UnityEngine;
 public class FurnitureEnvController : MonoBehaviour
 {
     [Header("Environment")]
@@ -15,6 +16,7 @@ public class FurnitureEnvController : MonoBehaviour
     Bounds areaBounds;
     SimpleMultiAgentGroup group;
     int stepCount;
+
 
     // 에이전트 들을 담아놓는 빈 부모객체
     [SerializeField]
@@ -111,15 +113,9 @@ public class FurnitureEnvController : MonoBehaviour
     {
         var b = areaBounds;
         var ext = a.HalfSizeXZ();
-        for (int tries = 0; tries < 128; tries++)
-        {
-            float x = Random.Range(b.min.x + ext.x, b.max.x - ext.x);
-            float z = Random.Range(b.min.z + ext.y, b.max.z - ext.y);
-            Vector3 p = new Vector3(x, b.center.y, z);
 
-            if (!a.OverlapAt(p))
-                return p;
-        }
+        float x = Random.Range(b.min.x + ext.x, b.max.x - ext.x);
+        float z = Random.Range(b.min.z + ext.y, b.max.z - ext.y);
         return new Vector3(b.center.x, b.center.y, b.center.z);
     }
 
