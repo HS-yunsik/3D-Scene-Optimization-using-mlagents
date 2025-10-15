@@ -4,6 +4,7 @@ using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class FurnitureAgent : Agent
 {
@@ -13,19 +14,17 @@ public class FurnitureAgent : Agent
     public float targetWallDistance = 0.2f;
     public float distanceWeight = 2.0f;
     public float alignmentWeight = 0.5f; // 벽 정렬 보상 가중치
-    public float overlapPenalty = 1f;
+    public float overlapPenalty = 0.01f;
     public float stepPenalty = 0.001f;
     public float distanceTolerance = 0.2f; // 허용 오차 (m 단위)
     public float rotateTolerance = 0.9f; // 허용 오차 (내적값 -1~1)
     private float previousDistanceError; // 이전 스텝의 거리를 이용하여 올바른 방향 제시
-    public float proximityPenaltyWeight = 0.5f; // 개인 공간 침범 페널티 가중치
     public float personalSpaceRadius = 2.0f;  // 이 반경 안에 들어오면 페널티 적용
-
 
     public bool isAtIdealDistance = false; // 컨트롤러에서 읽기용
     public bool isAtIdealRotate = false; // 컨트롤러에서 읽기용
     public bool isFrozen = false; // 목표 달성 후 움직이지 않도록
-    public bool deadLock = false; // deadlock 상태
+    public bool isoverlaped = false; // 겹침상태
     [Header("Colliders")]
     public Collider myCollider;
     public string wallTag = "Wall";
@@ -40,6 +39,7 @@ public class FurnitureAgent : Agent
     Collider[] wallColliders;
     Bounds areaBounds;
     SimpleMultiAgentGroup group;
+    private Rigidbody rb; // Rigidbody를 저장할 변수 추가
 
     // Controller가 관리하는 다른 에이전트 목록
     private List<FurnitureAgent> otherAgents;
@@ -52,8 +52,6 @@ public class FurnitureAgent : Agent
     }
     [Header("Phase Control")]
     public AgentPhase currentPhase; // 현재 페이즈 (Inspector에서 확인용)
-    // ==========================================================
-
 
     public override void Initialize()
     {
@@ -69,7 +67,7 @@ public class FurnitureAgent : Agent
 
         Transform parent = controller.transform;
         List<Collider> found = new List<Collider>();
-
+        rb = GetComponent<Rigidbody>();
         foreach (Transform child in parent.GetComponentsInChildren<Transform>())
         {
             if (child.CompareTag(wallTag))
@@ -95,7 +93,7 @@ public class FurnitureAgent : Agent
         // ✨ 에피소드 시작 시 항상 1단계(이동)부터 시작하도록 설정
         currentPhase = AgentPhase.Moving;
         isFrozen = false;
-        deadLock = false;
+        isoverlaped = false;
         isAtIdealDistance = false;
         isAtIdealRotate = false;
 
@@ -191,29 +189,27 @@ public class FurnitureAgent : Agent
         if (dir != Vector3.zero)
             TryMove(dir * moveSpeed * Time.fixedDeltaTime);
 
-
-        foreach (var other in otherAgents)
-        {
-            if (other.isFrozen || Vector3.Distance(transform.position, other.transform.position) > personalSpaceRadius)
-            {
-                continue;
-            }
-            float distance = Vector3.Distance(transform.position, other.transform.position);
-            float penalty = -(1f / (distance * distance)) * proximityPenaltyWeight;
-            AddReward(penalty);
-        }
-
         // 목표 도달 여부 판단을 위한 거리 계산 (보상 없이 계산만 수행)
         GetNearestWallInfo(out float finalWallDist, out _);
-        float finalCurrentError = Mathf.Abs(finalWallDist - targetWallDistance);
-        isAtIdealDistance = finalCurrentError <= distanceTolerance;
+        float currentDistanceError = Mathf.Abs(finalWallDist - targetWallDistance);
 
+        // 이전 스텝보다 목표 거리에 가까워졌다면 보상을, 멀어졌다면 페널티를 줍니다.
+        float reward = (previousDistanceError - currentDistanceError) * distanceWeight;
+        AddReward(reward);
+
+        // 다음 스텝에서의 계산을 위해 현재 거리 오차를 저장합니다.
+        previousDistanceError = currentDistanceError;
+
+
+        isAtIdealDistance = currentDistanceError <= distanceTolerance;
+        
         // 목표 거리에 도달하면 2단계(회전)으로 전환 (유지)
         if (isAtIdealDistance)
         {
-            if (OverlapAt(transform.position))
+            if(isoverlaped)
             {
-                AddReward(-overlapPenalty);
+                // 겹쳐있는 상태라면 페널티 주고 멈추지 않음
+                AddReward(-0.5f);
                 return;
             }
             AddReward(1.0f); // 페이즈 전환 성공 보상
@@ -231,21 +227,12 @@ public class FurnitureAgent : Agent
 
         // 회전 액션만 처리 (0:정지, 1:+Z, 2:-Z, 3:+X, 4:-X)
         int rotateAction = actions.DiscreteActions[1];
-        bool hasRotated = true;
         switch (rotateAction)
         {
             case 1: transform.rotation = Quaternion.Euler(0, 0, 0); break;   // +Z
             case 2: transform.rotation = Quaternion.Euler(0, 180, 0); break; // -Z
             case 3: transform.rotation = Quaternion.Euler(0, 90, 0); break;  // +X
             case 4: transform.rotation = Quaternion.Euler(0, -90, 0); break; // -X
-            default: hasRotated = false; break;
-        }
-
-        // 회전 후 겹치는지 확인
-        if (hasRotated && OverlapAt(transform.position))
-        {
-            // 잘못된 회전으로 겹치게 되면 큰 페널티
-            AddReward(-2.0f * overlapPenalty);
         }
 
         // --- 보상 로직 (오직 '정렬'에 대해서만) ---
@@ -297,75 +284,7 @@ public class FurnitureAgent : Agent
         p.z = Mathf.Clamp(p.z, areaBounds.min.z + half.y, areaBounds.max.z - half.y);
         p.y = areaBounds.center.y;
 
-        if (OverlapAt(p))
-        {
-            AddReward(-overlapPenalty);
-
-            // 2. 기본 탈출 방향 = 반대 방향
-            Vector3 escapeDir = -delta.normalized;
-            bool escaped = false;
-
-            // 3. 작은 스텝으로 점진적으로 밀어내기 시도 (0.1m씩, 최대 10회)
-            for (int i = 0; i < 10; i++)
-            {
-                Vector3 escapePos = transform.position + escapeDir * 0.1f * (i + 1);
-                escapePos.x = Mathf.Clamp(escapePos.x, areaBounds.min.x + half.x, areaBounds.max.x - half.x);
-                escapePos.z = Mathf.Clamp(escapePos.z, areaBounds.min.z + half.y, areaBounds.max.z - half.y);
-                escapePos.y = areaBounds.center.y;
-
-                if (!OverlapAt(escapePos))
-                {
-                    transform.position = escapePos;
-                    AddReward(-0.1f);
-                    escaped = true;
-                    break;
-                }
-            }
-
-            // 4. 여전히 못 빠져나왔다면 랜덤 회전 + 랜덤 위치 샘플
-            if (!escaped)
-            {
-                AddReward(-1f); // 교착 페널티
-                deadLock = true;
-
-                // 랜덤 회전 (0,90,180,270 중 하나)
-                float randomY = Random.Range(0, 4) * 90f;
-                transform.rotation = Quaternion.Euler(0f, randomY, 0f);
-
-                // 랜덤 이동 (범위 내)
-                Vector3 randomPos = new Vector3(
-                    Random.Range(areaBounds.min.x + half.x, areaBounds.max.x - half.x),
-                    areaBounds.center.y,
-                    Random.Range(areaBounds.min.z + half.y, areaBounds.max.z - half.y)
-                );
-
-                // 랜덤 위치가 비어있으면 그쪽으로 텔레포트
-                if (!OverlapAt(randomPos))
-                {
-                    transform.position = randomPos;
-                    AddReward(-0.5f);
-                    deadLock = false;
-                }
-            }
-
-            return;
-        }
-        // if (!OverlapAt(p)) 충돌 체크 후 이동
-        transform.position = p;
-    }
-
-    public bool OverlapAt(Vector3 center)
-    {
-        var hits = Physics.OverlapBox(center, myCollider.bounds.extents, transform.rotation);
-        foreach (var h in hits)
-        {
-            if (h == myCollider) continue;
-            if (h.isTrigger) continue;
-            if (h.CompareTag("ground")) continue;
-            // if (h.CompareTag(wallTag)) return true;
-            if (h.CompareTag(furnitureTag)) return true;
-        }
-        return false;
+        rb.MovePosition(p); 
     }
 
     public Vector2 HalfSizeXZ()
@@ -417,6 +336,26 @@ public class FurnitureAgent : Agent
         // 방향은 여전히 중심점 기준으로 계산하는 것이 안정적일 수 있습니다.
         direction = (bestWallPoint - center).normalized;
     }
+
+    private void OnTriggerStay(Collider other)
+    {
+        // 충돌한 대상이 가구나 벽이라면
+        if (other.CompareTag(furnitureTag) || other.CompareTag(wallTag))
+        {
+            isoverlaped = true;
+            AddReward(-overlapPenalty);
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        // 충돌한 대상이 가구나 벽이라면
+        if (other.CompareTag(furnitureTag) || other.CompareTag(wallTag))
+        {
+            isoverlaped = false;
+            AddReward(overlapPenalty * 5);
+        }
+    }
+
     // Debug용
     void OnDrawGizmosSelected()
     {

@@ -187,6 +187,11 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Furniture
       objectReference: {fileID: 0}
+    - target: {fileID: 1669287235790444061, guid: df20f913356fc664abf4261485cb39c8,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -207,6 +212,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 290498504}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: df20f913356fc664abf4261485cb39c8,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 290498506}
   m_SourcePrefab: {fileID: 100100000, guid: df20f913356fc664abf4261485cb39c8, type: 3}
 --- !u!4 &290498498 stripped
 Transform:
@@ -252,19 +261,18 @@ MonoBehaviour:
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
   moveSpeed: 2
-  targetWallDistance: 0.2
+  targetWallDistance: 0
   distanceWeight: 0.2
   alignmentWeight: 1
   overlapPenalty: 1
   stepPenalty: 0.001
   distanceTolerance: 0.5
   rotateTolerance: 0.9
-  proximityPenaltyWeight: 0.5
   personalSpaceRadius: 2
   isAtIdealDistance: 0
   isAtIdealRotate: 0
   isFrozen: 0
-  deadLock: 0
+  isoverlaped: 0
   myCollider: {fileID: 0}
   wallTag: Wall
   furnitureTag: Furniture
@@ -333,6 +341,33 @@ MonoBehaviour:
   rayMissColor: {r: 1, g: 1, b: 1, a: 1}
   m_StartVerticalOffset: 0.5
   m_EndVerticalOffset: 0.5
+--- !u!54 &290498506
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 290498499}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &696902958
 GameObject:
   m_ObjectHideFlags: 0
@@ -542,6 +577,11 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Furniture
       objectReference: {fileID: 0}
+    - target: {fileID: 3374655824853553786, guid: 45893e0c8bf352244b3433fe00750df1,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -562,6 +602,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 939605403}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 45893e0c8bf352244b3433fe00750df1,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 939605405}
   m_SourcePrefab: {fileID: 100100000, guid: 45893e0c8bf352244b3433fe00750df1, type: 3}
 --- !u!4 &939605397 stripped
 Transform:
@@ -607,19 +651,18 @@ MonoBehaviour:
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
   moveSpeed: 2
-  targetWallDistance: 0.2
+  targetWallDistance: 0
   distanceWeight: 0.2
   alignmentWeight: 1
   overlapPenalty: 1
   stepPenalty: 0.001
   distanceTolerance: 0.5
   rotateTolerance: 0.9
-  proximityPenaltyWeight: 0.5
   personalSpaceRadius: 2
   isAtIdealDistance: 0
   isAtIdealRotate: 0
   isFrozen: 0
-  deadLock: 0
+  isoverlaped: 0
   myCollider: {fileID: 0}
   wallTag: Wall
   furnitureTag: Furniture
@@ -688,6 +731,33 @@ MonoBehaviour:
   rayMissColor: {r: 1, g: 1, b: 1, a: 1}
   m_StartVerticalOffset: 0.5
   m_EndVerticalOffset: 0.5
+--- !u!54 &939605405
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 939605398}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1374868724
 GameObject:
   m_ObjectHideFlags: 0
@@ -1215,6 +1285,11 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Furniture
       objectReference: {fileID: 0}
+    - target: {fileID: 7025343137849843679, guid: f6f3c4f676f96524f9fc7cebaaeb5cd4,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1235,6 +1310,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1850359945}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f6f3c4f676f96524f9fc7cebaaeb5cd4,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1850359947}
   m_SourcePrefab: {fileID: 100100000, guid: f6f3c4f676f96524f9fc7cebaaeb5cd4, type: 3}
 --- !u!4 &1850359939 stripped
 Transform:
@@ -1280,19 +1359,18 @@ MonoBehaviour:
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
   moveSpeed: 2
-  targetWallDistance: 0.2
+  targetWallDistance: 0
   distanceWeight: 0.2
   alignmentWeight: 1
   overlapPenalty: 1
   stepPenalty: 0.001
   distanceTolerance: 0.5
   rotateTolerance: 0.9
-  proximityPenaltyWeight: 0.5
   personalSpaceRadius: 2
   isAtIdealDistance: 0
   isAtIdealRotate: 0
   isFrozen: 0
-  deadLock: 0
+  isoverlaped: 0
   myCollider: {fileID: 0}
   wallTag: Wall
   furnitureTag: Furniture
@@ -1361,6 +1439,33 @@ MonoBehaviour:
   rayMissColor: {r: 1, g: 1, b: 1, a: 1}
   m_StartVerticalOffset: 0.5
   m_EndVerticalOffset: 0.5
+--- !u!54 &1850359947
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1850359940}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1915209059
 GameObject:
   m_ObjectHideFlags: 0
@@ -1677,6 +1782,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6044255530663935058, guid: 09dbe21dc4cdc114fa8dc38e51d352aa,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1697,6 +1807,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 4182257254974329493}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 09dbe21dc4cdc114fa8dc38e51d352aa,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4182257254974329495}
   m_SourcePrefab: {fileID: 100100000, guid: 09dbe21dc4cdc114fa8dc38e51d352aa, type: 3}
 --- !u!4 &4182257254974329487 stripped
 Transform:
@@ -1727,19 +1841,18 @@ MonoBehaviour:
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
   moveSpeed: 2
-  targetWallDistance: 0.2
+  targetWallDistance: 0
   distanceWeight: 0.2
   alignmentWeight: 1
   overlapPenalty: 1
   stepPenalty: 0.001
   distanceTolerance: 0.5
   rotateTolerance: 0.9
-  proximityPenaltyWeight: 0.5
   personalSpaceRadius: 2
   isAtIdealDistance: 0
   isAtIdealRotate: 0
   isFrozen: 0
-  deadLock: 0
+  isoverlaped: 0
   myCollider: {fileID: 0}
   wallTag: Wall
   furnitureTag: Furniture
@@ -1823,6 +1936,33 @@ MonoBehaviour:
   rayMissColor: {r: 1, g: 1, b: 1, a: 1}
   m_StartVerticalOffset: 0.5
   m_EndVerticalOffset: 0.5
+--- !u!54 &4182257254974329495
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4182257254974329488}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &6210532521856591362
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1917,6 +2057,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5314239274424802033, guid: bdd2fea9debd18c4bb3f6e95357f65fc,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1937,6 +2082,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 6210532521856591369}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: bdd2fea9debd18c4bb3f6e95357f65fc,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6210532521856591371}
   m_SourcePrefab: {fileID: 100100000, guid: bdd2fea9debd18c4bb3f6e95357f65fc, type: 3}
 --- !u!4 &6210532521856591363 stripped
 Transform:
@@ -1967,19 +2116,18 @@ MonoBehaviour:
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
   moveSpeed: 2
-  targetWallDistance: 0.2
+  targetWallDistance: 0
   distanceWeight: 0.2
   alignmentWeight: 1
   overlapPenalty: 1
   stepPenalty: 0.001
   distanceTolerance: 0.5
   rotateTolerance: 0.9
-  proximityPenaltyWeight: 0.5
   personalSpaceRadius: 2
   isAtIdealDistance: 0
   isAtIdealRotate: 0
   isFrozen: 0
-  deadLock: 0
+  isoverlaped: 0
   myCollider: {fileID: 0}
   wallTag: Wall
   furnitureTag: Furniture
@@ -2063,6 +2211,33 @@ MonoBehaviour:
   rayMissColor: {r: 1, g: 1, b: 1, a: 1}
   m_StartVerticalOffset: 0.5
   m_EndVerticalOffset: 0.5
+--- !u!54 &6210532521856591371
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6210532521856591364}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &9042125862247212965
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2090,6 +2265,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Others_6d7e5fc1-1f39-479f-9a26-6e3b208a37ff
+      objectReference: {fileID: 0}
+    - target: {fileID: 7015757694574328164, guid: e992634b7a69b524aaeeb9f87c715638,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8527332769600163909, guid: e992634b7a69b524aaeeb9f87c715638,
         type: 3}
@@ -2187,6 +2367,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 9042125862247212972}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e992634b7a69b524aaeeb9f87c715638,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9042125862247212974}
   m_SourcePrefab: {fileID: 100100000, guid: e992634b7a69b524aaeeb9f87c715638, type: 3}
 --- !u!4 &9042125862247212966 stripped
 Transform:
@@ -2217,19 +2401,18 @@ MonoBehaviour:
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
   moveSpeed: 2
-  targetWallDistance: 0.2
+  targetWallDistance: 0
   distanceWeight: 0.2
   alignmentWeight: 1
   overlapPenalty: 1
   stepPenalty: 0.001
   distanceTolerance: 0.5
   rotateTolerance: 0.9
-  proximityPenaltyWeight: 0.5
   personalSpaceRadius: 2
   isAtIdealDistance: 0
   isAtIdealRotate: 0
   isFrozen: 0
-  deadLock: 0
+  isoverlaped: 0
   myCollider: {fileID: 0}
   wallTag: Wall
   furnitureTag: Furniture
@@ -2313,6 +2496,33 @@ MonoBehaviour:
   rayMissColor: {r: 1, g: 1, b: 1, a: 1}
   m_StartVerticalOffset: 0.5
   m_EndVerticalOffset: 0.5
+--- !u!54 &9042125862247212974
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9042125862247212967}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
